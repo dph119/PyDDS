@@ -128,7 +128,7 @@ class pyDDS(dds_base.dds_base):
         # TODO: How do we want to CREATE the header?
         # Original data is immutable, but we may want to create something new from it.
         
-        logger.info('Creating file: %s' % fname)
+        self.logger.info('Creating file: %s' % fname)
         
         fhandle = open(fname, 'wb')
         
@@ -188,7 +188,7 @@ class pyDDS(dds_base.dds_base):
         
         fhandle.close()
 
-        logger.info('Done creating file: %s' % fname)
+        self.logger.info('Done creating file: %s' % fname)
         pass
 
 if __name__ == '__main__':

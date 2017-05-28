@@ -8,7 +8,7 @@ dxt10_header.py
 """
 
 import logging
-import dds_base
+from . import dds_base
 
 
 class DXT10Header(dds_base.DDSBase):

@@ -16,11 +16,11 @@ import os
 import logging
 import struct
 import binascii
-import dds_header
-import dxt10_header
-import dds_base
-import block_compression
 import png
+from . import dds_header
+from . import dxt10_header
+from . import dds_base
+from . import block_compression
 
 
 class PyDDS(dds_base.DDSBase):

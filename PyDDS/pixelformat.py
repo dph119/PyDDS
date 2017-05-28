@@ -6,7 +6,7 @@ pixelformat.py
 """
 
 import logging
-import dds_base
+from . import dds_base
 
 
 class Pixelformat(dds_base.DDSBase):

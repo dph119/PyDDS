@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>PyDDS.dds_base</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="PyDDS-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >PyDDS</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="PyDDS-module.html">Package&nbsp;PyDDS</a> ::
+        Module&nbsp;dds_base
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="PyDDS.dds_base-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="PyDDS.dds_base-module.html">Module PyDDS.dds_base</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">dds_base.py</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">    - Define a base class common to all classes that will be used</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">      to contain data of a DirectDrawSurface (.dds) file.</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">abc</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">collections</tt> <tt class="py-keyword">import</tt> <tt class="py-name">namedtuple</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">binascii</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">logging</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">math</tt> </tt>
+<a name="DDSBase"></a><div id="DDSBase-def"><a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt> <a class="py-toggle" href="#" id="DDSBase-toggle" onclick="return toggle('DDSBase');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="PyDDS.dds_base.DDSBase-class.html">DDSBase</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DDSBase-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="DDSBase-expanded"><a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">    <tt class="py-docstring">"""Reponsible for containing information common to all classes</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">    that will be used to constain data of a DirectDrawSurface (.dds) file."""</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line">    <tt class="py-name">__metaclass__</tt> <tt class="py-op">=</tt> <tt class="py-name">abc</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Class abc.ABCMeta=abc.ABCMeta-class.html"><a title="abc.ABCMeta" class="py-name" href="#" onclick="return doclink('link-0', 'ABCMeta', 'link-0');">ABCMeta</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">    <tt id="link-1" class="py-name" targets="Variable PyDDS.dds_base.DDSBase.DWORD=PyDDS.dds_base.DDSBase-class.html#DWORD"><a title="PyDDS.dds_base.DDSBase.DWORD" class="py-name" href="#" onclick="return doclink('link-1', 'DWORD', 'link-1');">DWORD</a></tt> <tt class="py-op">=</tt> <tt class="py-number">4</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">    <tt id="link-2" class="py-name" targets="Variable PyDDS.dds_base.DDSBase.UINT=PyDDS.dds_base.DDSBase-class.html#UINT"><a title="PyDDS.dds_base.DDSBase.UINT" class="py-name" href="#" onclick="return doclink('link-2', 'UINT', 'link-2');">UINT</a></tt> <tt class="py-op">=</tt> <tt id="link-3" class="py-name"><a title="PyDDS.dds_base.DDSBase.DWORD" class="py-name" href="#" onclick="return doclink('link-3', 'DWORD', 'link-1');">DWORD</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt id="link-4" class="py-name" targets="Class PyDDS.dds_base.DDSBase.dds_field=PyDDS.dds_base.DDSBase.dds_field-class.html"><a title="PyDDS.dds_base.DDSBase.dds_field" class="py-name" href="#" onclick="return doclink('link-4', 'dds_field', 'link-4');">dds_field</a></tt> <tt class="py-op">=</tt> <tt class="py-name">namedtuple</tt><tt class="py-op">(</tt><tt class="py-string">'dds_field'</tt><tt class="py-op">,</tt> <tt class="py-string">'name byte_size'</tt><tt class="py-op">)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt id="link-5" class="py-name" targets="Class PyDDS.dds_base.DDSBase.dds_flag=PyDDS.dds_base.DDSBase.dds_flag-class.html"><a title="PyDDS.dds_base.DDSBase.dds_flag" class="py-name" href="#" onclick="return doclink('link-5', 'dds_flag', 'link-5');">dds_flag</a></tt> <tt class="py-op">=</tt> <tt class="py-name">namedtuple</tt><tt class="py-op">(</tt><tt class="py-string">'dds_flag'</tt><tt class="py-op">,</tt> <tt class="py-string">'field_name name value'</tt><tt class="py-op">)</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">    <tt class="py-comment">##############################################################</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
+<a name="DDSBase.__init__"></a><div id="DDSBase.__init__-def"><a name="L31"></a><tt class="py-lineno"> 31</tt> <a class="py-toggle" href="#" id="DDSBase.__init__-toggle" onclick="return toggle('DDSBase.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PyDDS.dds_base.DDSBase-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DDSBase.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DDSBase.__init__-expanded"><a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">logger</tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-name">__name__</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">staticmethod</tt> </tt>
+<a name="DDSBase.swap_endian_hex_str"></a><div id="DDSBase.swap_endian_hex_str-def"><a name="L35"></a><tt class="py-lineno"> 35</tt> <a class="py-toggle" href="#" id="DDSBase.swap_endian_hex_str-toggle" onclick="return toggle('DDSBase.swap_endian_hex_str');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PyDDS.dds_base.DDSBase-class.html#swap_endian_hex_str">swap_endian_hex_str</a><tt class="py-op">(</tt><tt class="py-param">string</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DDSBase.swap_endian_hex_str-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DDSBase.swap_endian_hex_str-expanded"><a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-docstring">"""Take some hex string and reverse the byte ordering."""</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-comment"># Remove the '0x' prefix if it's there</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">string</tt><tt class="py-op">.</tt><tt class="py-name">startswith</tt><tt class="py-op">(</tt><tt class="py-string">'0x'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">            <tt class="py-name">string</tt> <tt class="py-op">=</tt> <tt class="py-name">string</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-comment"># Note: tried using array module (array.array('h', string)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-comment"># and using byteswap(), but that appears to just swap</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-comment"># pairs of bytes, and I really want to reverse the</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-comment"># entire ordering</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-keyword">assert</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">string</tt><tt class="py-op">)</tt> <tt class="py-op">%</tt> <tt class="py-number">2</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> \ </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">            <tt class="py-string">"Provided string (%s) must be an even number of chars"</tt> <tt class="py-op">%</tt> <tt class="py-name">string</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-comment"># Build an array of bytes</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-name">swapped_array</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">first</tt><tt class="py-op">,</tt> <tt class="py-name">second</tt> <tt class="py-keyword">in</tt> <tt class="py-name">zip</tt><tt class="py-op">(</tt><tt class="py-name">string</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">:</tt><tt class="py-op">:</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">string</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">:</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">            <tt class="py-name">hex_char</tt> <tt class="py-op">=</tt> <tt class="py-name">first</tt> <tt class="py-op">+</tt> <tt class="py-name">second</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">            <tt class="py-name">swapped_array</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">hex_char</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-comment"># Swap the elements (bytes) in the array, pack into the string</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-name">swapped_string</tt> <tt class="py-op">=</tt> <tt class="py-string">''</tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">reversed</tt><tt class="py-op">(</tt><tt class="py-name">swapped_array</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">swapped_string</tt> </tt>
+</div><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="DDSBase.get_flag_value"></a><div id="DDSBase.get_flag_value-def"><a name="L61"></a><tt class="py-lineno"> 61</tt> <a class="py-toggle" href="#" id="DDSBase.get_flag_value-toggle" onclick="return toggle('DDSBase.get_flag_value');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PyDDS.dds_base.DDSBase-class.html#get_flag_value">get_flag_value</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">field_name</tt><tt class="py-op">,</tt> <tt class="py-param">flag_name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DDSBase.get_flag_value-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DDSBase.get_flag_value-expanded"><a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-docstring">"""Get the value of some flag in a field."""</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">            <tt class="py-name">field_size</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">_field</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Variable PyDDS.dds_base.DDSBase.dds_field.byte_size=PyDDS.dds_base.DDSBase.dds_field-class.html#byte_size"><a title="PyDDS.dds_base.DDSBase.dds_field.byte_size" class="py-name" href="#" onclick="return doclink('link-6', 'byte_size', 'link-6');">byte_size</a></tt> <tt class="py-keyword">for</tt> <tt class="py-name">_field</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fields</tt> \ </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">                          <tt class="py-keyword">if</tt> <tt class="py-name">_field</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Variable PyDDS.dds_base.DDSBase.dds_field.name=PyDDS.dds_base.DDSBase.dds_field-class.html#name,Variable PyDDS.dds_base.DDSBase.dds_flag.name=PyDDS.dds_base.DDSBase.dds_flag-class.html#name"><a title="PyDDS.dds_base.DDSBase.dds_field.name
+PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return doclink('link-7', 'name', 'link-7');">name</a></tt> <tt class="py-op">==</tt> <tt id="link-8" class="py-name" targets="Variable PyDDS.dds_base.DDSBase.dds_flag.field_name=PyDDS.dds_base.DDSBase.dds_flag-class.html#field_name"><a title="PyDDS.dds_base.DDSBase.dds_flag.field_name" class="py-name" href="#" onclick="return doclink('link-8', 'field_name', 'link-8');">field_name</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">IndexError</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">logger</tt><tt class="py-op">.</tt><tt class="py-name">error</tt><tt class="py-op">(</tt><tt class="py-string">"Field '%s' does not appear to exist."</tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_flag.field_name" class="py-name" href="#" onclick="return doclink('link-9', 'field_name', 'link-8');">field_name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">            <tt class="py-op">[</tt><tt class="py-name">flag</tt> <tt class="py-keyword">for</tt> <tt class="py-name">flag</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">flags</tt> <tt class="py-keyword">if</tt> <tt class="py-name">flag</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_field.name
+PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return doclink('link-10', 'name', 'link-7');">name</a></tt> <tt class="py-op">==</tt> <tt class="py-name">flag_name</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">IndexError</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">logger</tt><tt class="py-op">.</tt><tt class="py-name">error</tt><tt class="py-op">(</tt><tt class="py-string">"Flag '%s' does not appear to exist."</tt><tt class="py-op">,</tt> <tt class="py-name">flag_name</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">hex_value</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt id="link-11" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_flag.field_name" class="py-name" href="#" onclick="return doclink('link-11', 'field_name', 'link-8');">field_name</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'hex'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-number">16</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-name">binary_value</tt> <tt class="py-op">=</tt> <tt class="py-name">bin</tt><tt class="py-op">(</tt><tt class="py-name">hex_value</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">:</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">zfill</tt><tt class="py-op">(</tt><tt class="py-name">field_size</tt> <tt class="py-op">*</tt> <tt class="py-number">8</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-name">index</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">round</tt><tt class="py-op">(</tt><tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">log</tt><tt class="py-op">(</tt><tt class="py-name">flag</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Variable PyDDS.dds_base.DDSBase.dds_flag.value=PyDDS.dds_base.DDSBase.dds_flag-class.html#value"><a title="PyDDS.dds_base.DDSBase.dds_flag.value" class="py-name" href="#" onclick="return doclink('link-12', 'value', 'link-12');">value</a></tt><tt class="py-op">,</tt> <tt class="py-number">2</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">binary_value</tt><tt class="py-op">[</tt><tt class="py-name">index</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"> </tt>
+<a name="DDSBase.print_fields"></a><div id="DDSBase.print_fields-def"><a name="L83"></a><tt class="py-lineno"> 83</tt> <a class="py-toggle" href="#" id="DDSBase.print_fields-toggle" onclick="return toggle('DDSBase.print_fields');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="PyDDS.dds_base.DDSBase-class.html#print_fields">print_fields</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DDSBase.print_fields-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="DDSBase.print_fields-expanded"><a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-docstring">"""Pretty print fields listed in 'fields'.</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-docstring">        Generally print each field, the value of that field (with</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">        corresponding ASCII representation), and then a breakdown</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring">        of any flags in that field, if applicable.</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">'-'</tt> <tt class="py-op">*</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__name__</tt><tt class="py-op">)</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__name__</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">'-'</tt> <tt class="py-op">*</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__name__</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">field</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fields</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">            <tt class="py-name">field_size_bits</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">_field</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_field.byte_size" class="py-name" href="#" onclick="return doclink('link-13', 'byte_size', 'link-6');">byte_size</a></tt> <tt class="py-keyword">for</tt> <tt class="py-name">_field</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">fields</tt> \ </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">                               <tt class="py-keyword">if</tt> <tt class="py-name">_field</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_field.name
+PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return doclink('link-14', 'name', 'link-7');">name</a></tt> <tt class="py-op">==</tt> <tt class="py-name">field</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_field.name
+PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return doclink('link-15', 'name', 'link-7');">name</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">*</tt> <tt class="py-number">8</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">            <tt class="py-name">matching_flags</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">flag</tt> <tt class="py-keyword">for</tt> <tt class="py-name">flag</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">flags</tt> <tt class="py-keyword">if</tt> <tt class="py-name">flag</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_flag.field_name" class="py-name" href="#" onclick="return doclink('link-16', 'field_name', 'link-8');">field_name</a></tt> <tt class="py-op">==</tt> <tt class="py-name">field</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_field.name
+PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return doclink('link-17', 'name', 'link-7');">name</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">            <tt class="py-comment"># We need to do an endian swap because the struct module does not</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">            <tt class="py-comment"># do any endian swapping for char arrays (which is the format used when reading the file)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">            <tt class="py-comment"># BOZO: May just be better to stick to using actual ints/doubles to describe</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">            <tt class="py-comment"># the length of the fields to avoid needing this function</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">            <tt class="py-comment"># Update: Tried it -- just opens up another can of worms around correctly interpreting the</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">            <tt class="py-comment"># int values you get back. Doesn't seem worth it atm.</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">                <tt class="py-name">final_val</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Static Method PyDDS.dds_base.DDSBase.swap_endian_hex_str()=PyDDS.dds_base.DDSBase-class.html#swap_endian_hex_str"><a title="PyDDS.dds_base.DDSBase.swap_endian_hex_str" class="py-name" href="#" onclick="return doclink('link-18', 'swap_endian_hex_str', 'link-18');">swap_endian_hex_str</a></tt><tt class="py-op">(</tt><tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">field</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_field.name
+PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return doclink('link-19', 'name', 'link-7');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'hex'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-number">16</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">:</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">                <tt class="py-comment"># If the field does not exist, then just move on to the next one</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">            <tt class="py-name">bin_val</tt> <tt class="py-op">=</tt> <tt class="py-name">bin</tt><tt class="py-op">(</tt><tt class="py-name">final_val</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">:</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">            <tt class="py-name">padded_bin_val</tt> <tt class="py-op">=</tt> <tt class="py-name">bin_val</tt><tt class="py-op">.</tt><tt class="py-name">zfill</tt><tt class="py-op">(</tt><tt class="py-name">field_size_bits</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">            <tt class="py-name">final_bin_val</tt> <tt class="py-op">=</tt> <tt class="py-name">padded_bin_val</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-name">field</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_field.name
+PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return doclink('link-20', 'name', 'link-7');">name</a></tt><tt class="py-op">,</tt> <tt class="py-name">hex</tt><tt class="py-op">(</tt><tt class="py-name">final_val</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">'(%s)'</tt> <tt class="py-op">%</tt> <tt class="py-name">final_val</tt><tt class="py-op">,</tt> \ </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">                <tt class="py-name">binascii</tt><tt class="py-op">.</tt><tt class="py-name">unhexlify</tt><tt class="py-op">(</tt><tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">field</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_field.name
+PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return doclink('link-21', 'name', 'link-7');">name</a></tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">encode</tt><tt class="py-op">(</tt><tt class="py-string">'hex'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">flag</tt> <tt class="py-keyword">in</tt> <tt class="py-name">matching_flags</tt><tt class="py-op">:</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">                <tt class="py-name">index</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">round</tt><tt class="py-op">(</tt><tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">log</tt><tt class="py-op">(</tt><tt class="py-name">flag</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_flag.value" class="py-name" href="#" onclick="return doclink('link-22', 'value', 'link-12');">value</a></tt><tt class="py-op">,</tt> <tt class="py-number">2</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">                <tt class="py-comment"># Flags are binary values, so just print whether value is non-zero.</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">                <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">                    <tt class="py-keyword">print</tt> <tt class="py-string">'\t%s: %d'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">flag</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="PyDDS.dds_base.DDSBase.dds_field.name
+PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return doclink('link-23', 'name', 'link-7');">name</a></tt><tt class="py-op">,</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">final_bin_val</tt><tt class="py-op">[</tt><tt class="py-name">index</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt> <tt class="py-name">IndexError</tt><tt class="py-op">:</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">logger</tt><tt class="py-op">.</tt><tt class="py-name">warning</tt><tt class="py-op">(</tt><tt class="py-name">flag</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">logger</tt><tt class="py-op">.</tt><tt class="py-name">warning</tt><tt class="py-op">(</tt><tt class="py-name">index</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">logger</tt><tt class="py-op">.</tt><tt class="py-name">warning</tt><tt class="py-op">(</tt><tt class="py-name">final_bin_val</tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> </tt>
+</div></div><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="PyDDS-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >PyDDS</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sun May 28 16:14:40 2017
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

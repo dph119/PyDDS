@@ -6,8 +6,8 @@
 """
 
 import logging
-import dds_base
-import pixelformat
+from . import dds_base
+from . import pixelformat
 
 
 

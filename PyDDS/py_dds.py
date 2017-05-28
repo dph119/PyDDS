@@ -21,9 +21,9 @@ from . import dds_header
 from . import dxt10_header
 from . import dds_base
 from . import block_compression
+from . import pixel_swizzle
 
-
-class PyDDS(dds_base.DDSBase):
+class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
     """Reponsible for containing the pixelformat information in
     a DirectDrawSurface (.dds) file."""
 
@@ -67,13 +67,15 @@ class PyDDS(dds_base.DDSBase):
 
         fhandle = open(fname, 'wb')
 
+        swizzled_data = self.swizzle_decompressed_bc1_to_png(data, width)
+
         writer = png.Writer(width, height)
 
         # PNG expects the data to be presented in "boxed row flat pixel" format:
         # list([R,G,B, R,G,B, R,G,B],
         #      [R,G,B, R,G,B, R,G,B])
         # Each row will be width * # components elements * # bytes/component
-        formatted_data = zip(*(iter(data),) * (width * 3 * 1))
+        formatted_data = zip(*(iter(swizzled_data),) * (width * 3 * 1))
 
         writer.write(fhandle, formatted_data)
         fhandle.close()

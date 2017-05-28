@@ -15,11 +15,12 @@ import os
 import logging
 from pprint import pprint
 from struct import *
-import math
 import binascii
 import dds_header
 import dxt10_header
 import dds_base
+import bc
+import png
 
 
 class pyDDS(dds_base.dds_base):
@@ -31,12 +32,57 @@ class pyDDS(dds_base.dds_base):
     def __init__(self, fname):
         self.dds_header = dds_header.dds_header()
         self.dxt10_header = dxt10_header.dxt10_header()
+        self.bc = bc.bc()
         self.logger = logging.getLogger(__name__)
         self.data = []
-
+        self.decompressed_data = []
+        self.data_is_decompressed = False
+        
         self.read(fname)
         pass
 
+    def decompress(self):
+        self.decompressed_data = self.bc.decompress_bc1(self.data)
+        self.data_is_decompressed = True
+        pass
+
+    def write_to_png(self, fname):
+        """Write out the pixel data to a .png file."""
+
+        # Figure out which data to write out.
+        # If the decompressed data is valid, use that.
+        if self.data_is_decompressed:
+            data = self.decompressed_data
+            pass
+        else:
+            data = self.data
+            pass
+
+        assert data, 'data must be something valid at this point.'
+        
+        height = int(self.swap_endian_hex_str(self.dds_header.dwHeight.encode('hex')), 16)
+        width = int(self.swap_endian_hex_str(self.dds_header.dwWidth.encode('hex')), 16)        
+
+        self.logger.info('Creating PNG file: %s (width, height = %d,%d)' % (fname, width, height))
+        
+        f = open(fname, 'wb')
+
+        w = png.Writer(width, height)
+
+        # PNG expects the data to be presented in "boxed row flat pixel" format:
+        # list([R,G,B, R,G,B, R,G,B],
+        #      [R,G,B, R,G,B, R,G,B])
+        # Each row will be width * # components elements * # bytes/component
+        formatted_data = zip(*(iter(data),) * (width * 3 * 1))
+
+        pprint(formatted_data)
+        
+        w.write(f, formatted_data)
+        f.close()
+        
+        self.logger.info('Done creating PNG file.')
+        pass
+    
     def print_data(self):
         self.dds_header.print_data()
         self.dds_header.pixelformat.print_data()
@@ -200,10 +246,14 @@ if __name__ == '__main__':
                         datefmt=DATEFMT,
                         level=logging.DEBUG)
     
-    dds = pyDDS('fungus.dds')
+    dds = pyDDS('test.dds')
 
     dds.print_data()
 
-    dds.write('fungal.dds')
+    dds.decompress()
+    
+    dds.write('testy.dds')
+    dds.write_to_png('dat.png')
+    
     pass
 

@@ -168,8 +168,6 @@ class bc(object):
 
             self.logger.debug('formatted_decomp_block:')
             self.logger.debug(formatted_decomp_block)
-
-            assert 0
             pass
         return decomp_data
     pass

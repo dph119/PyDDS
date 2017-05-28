@@ -11,6 +11,9 @@
 #
 ######################################################################
 
+import sys
+sys.dont_write_bytecode = True
+
 import os
 import logging
 from pprint import pprint
@@ -22,7 +25,7 @@ import dds_base
 import bc
 import png
 
-
+    
 class pyDDS(dds_base.dds_base):
     """Reponsible for containing the pixelformat information in
     a DirectDrawSurface (.dds) file."""
@@ -75,8 +78,6 @@ class pyDDS(dds_base.dds_base):
         # Each row will be width * # components elements * # bytes/component
         formatted_data = zip(*(iter(data),) * (width * 3 * 1))
 
-        pprint(formatted_data)
-        
         w.write(f, formatted_data)
         f.close()
         
@@ -244,16 +245,16 @@ if __name__ == '__main__':
 
     logging.basicConfig(format=FORMAT,
                         datefmt=DATEFMT,
-                        level=logging.DEBUG)
+                        level=logging.INFO)
     
-    dds = pyDDS('test.dds')
+    dds = pyDDS('../test/test.dds')
 
     dds.print_data()
 
     dds.decompress()
     
-    dds.write('testy.dds')
-    dds.write_to_png('dat.png')
+    dds.write('../test/testy.dds')
+    dds.write_to_png('../test/dat.png')
     
     pass
 

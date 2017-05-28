@@ -33,9 +33,9 @@ class BlockCompression(object):
                      self.green : 6,
                      self.blue : 5}
 
-        component_start = {self.red : 0,
+        component_start = {self.red : 10,
                            self.green : 5,
-                           self.blue : 10}
+                           self.blue : 0}
 
         component_end = {self.red : bit_width[self.red] + component_start[self.red],
                          self.green : bit_width[self.green] + component_start[self.green],

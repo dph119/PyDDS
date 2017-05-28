@@ -19,6 +19,7 @@ class dds_header(dds_base.dds_base):
     ##############################################################
 
     def __init__(self):
+        self.__name__ = 'DDS_HEADER'
         self.pixelformat = pixelformat.pixelformat()
         self.logger = logging.getLogger(__name__)
 
@@ -65,14 +66,6 @@ class dds_header(dds_base.dds_base):
                       self.dds_flag('dwCaps2', 'DDSCAPS2_CUBEMAP_POSITIVEZ', 0x4000),
                       self.dds_flag('dwCaps2', 'DDSCAPS2_CUBEMAP_NEGATIVEZ', 0x8000),
                       self.dds_flag('dwCaps2', 'DDSCAPS2_CUBEMAP_VOLUME', 0x200000)]
-
-        # Define the namedtuples
-        self.before_pixelformat = namedtuple('before_pixelformat',
-                                             ' '.join(field.name for field in self.fields_before_pixelformat))
-        
-        self.after_pixelformat = namedtuple('after_pixelformat',
-                                            ' '.join(field.name for field in self.fields_after_pixelformat))
-        
         # Describe how the header is packed in the dds file
         self.before_pixelformat_packed_fmt = ''.join([str(field.byte_size) + 's' \
                                                       for field in self.fields_before_pixelformat])
@@ -83,13 +76,6 @@ class dds_header(dds_base.dds_base):
         self.packed_fmt = self.before_pixelformat_packed_fmt \
                           + self.pixelformat.packed_fmt \
                           + self.after_pixelformat_packed_fmt
-        pass
-
-    def print_data(self):
-        print '----------'        
-        print 'DDS_HEADER'
-        print '----------'    
-        self.print_fields(self.fields, self.flags)    
         pass
     pass
     

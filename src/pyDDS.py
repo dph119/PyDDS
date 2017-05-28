@@ -84,10 +84,10 @@ class pyDDS(dds_base.dds_base):
         self.logger.info('Done creating PNG file.')
         pass
     
-    def print_data(self):
-        self.dds_header.print_data()
-        self.dds_header.pixelformat.print_data()
-        self.dxt10_header.print_data()
+    def print_fields(self):
+        self.dds_header.print_fields()
+        self.dds_header.pixelformat.print_fields()
+        self.dxt10_header.print_fields()
         pass
     
     def read(self, fname):
@@ -249,12 +249,12 @@ if __name__ == '__main__':
     
     dds = pyDDS('../test/test.dds')
 
-    dds.print_data()
+    dds.print_fields()
 
-    dds.decompress()
+#    dds.decompress()
     
-    dds.write('../test/testy.dds')
-    dds.write_to_png('../test/dat.png')
+#    dds.write('../test/testy.dds')
+#    dds.write_to_png('../test/dat.png')
     
     pass
 

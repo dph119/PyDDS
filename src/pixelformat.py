@@ -17,6 +17,7 @@ class pixelformat(dds_base.dds_base):
     ##############################################################
 
     def __init__(self):
+        self.__name__ = 'DDS_PIXELFORMAT'
         self.logger = logging.getLogger(__name__)
 
         self.fields = [self.dds_field('dwSize', self.DWORD),
@@ -39,13 +40,6 @@ class pixelformat(dds_base.dds_base):
     
         self.packed_fmt = ''.join([str(field.byte_size) + 's' \
                                    for field in self.fields])
-        pass
-    
-    def print_data(self):
-        print '---------------'    
-        print 'DDS_PIXELFORMAT'
-        print '---------------'
-        self.print_fields(self.fields, self.flags)
         pass
     pass
     

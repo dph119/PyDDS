@@ -12,6 +12,7 @@ from collections import namedtuple
 import binascii
 import logging
 import math
+from pprint import pprint
 
 
 class dds_base(object):
@@ -82,12 +83,7 @@ class dds_base(object):
 
         return binary_value[index]
 
-    @abc.abstractmethod
-    def print_data(self):
-        """Method to print all the data in the instance."""
-        pass
-    
-    def print_fields(self, fields, flags):
+    def print_fields(self):
         """Pretty print fields listed in 'fields'.
 
         Generally print each field, the value of that field (with
@@ -95,10 +91,14 @@ class dds_base(object):
         of any flags in that field, if applicable.
         """
 
-        for field in fields:
-            field_size_bits = [_field.byte_size for _field in fields \
+        print '-' * len(self.__name__)
+        print self.__name__
+        print '-' * len(self.__name__)
+        
+        for field in self.fields:
+            field_size_bits = [_field.byte_size for _field in self.fields \
                                if _field.name == field.name][0] * 8
-            matching_flags = [flag for flag in flags if flag.field_name == field.name]
+            matching_flags = [flag for flag in self.flags if flag.field_name == field.name]
             
             # We need to do an endian swap because the struct module does not
             # do any endian swapping for char arrays (which is the format used when reading the file)

@@ -20,6 +20,7 @@ class dxt10_header(dds_base.dds_base):
     ##############################################################
 
     def __init__(self):
+        self.__name__ = 'DXT10_HEADER'        
         self.logger = logging.getLogger(__name__)
 
         self.fields = [self.dds_field('dxgiFormat', self.UINT),
@@ -41,13 +42,6 @@ class dxt10_header(dds_base.dds_base):
                                    for field in self.fields])
 
         self.valid = False
-        pass
-    
-    def print_data(self):
-        print '----------------'    
-        print 'DDS_DXT10_HEADER'
-        print '----------------'
-        self.print_fields(self.fields, self.flags)
         pass
     pass
     

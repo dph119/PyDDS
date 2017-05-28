@@ -12,7 +12,6 @@ PyDDS.pixelformat	PyDDS.pixelformat-module.html
 PyDDS.pixelformat.__package__	PyDDS.pixelformat-module.html#__package__
 PyDDS.py_dds	PyDDS.py_dds-module.html
 PyDDS.py_dds.__package__	PyDDS.py_dds-module.html#__package__
-PyDDS.py_dds.run_test	PyDDS.py_dds-module.html#run_test
 PyDDS.block_compression.BlockCompression	PyDDS.block_compression.BlockCompression-class.html
 PyDDS.block_compression.BlockCompression.decompress_bc1	PyDDS.block_compression.BlockCompression-class.html#decompress_bc1
 PyDDS.block_compression.BlockCompression.get_bc1_colors_from_block	PyDDS.block_compression.BlockCompression-class.html#get_bc1_colors_from_block

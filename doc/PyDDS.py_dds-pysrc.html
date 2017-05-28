@@ -302,30 +302,7 @@ PyDDS.dds_base.DDSBase.dds_flag.name" class="py-name" href="#" onclick="return d
 <a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-name">fhandle</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"> </tt>
 <a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">logger</tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">(</tt><tt class="py-string">'Done creating file: %s'</tt><tt class="py-op">,</tt> <tt class="py-name">fname</tt><tt class="py-op">)</tt> </tt>
-</div></div><a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"> </tt>
-<a name="run_test"></a><div id="run_test-def"><a name="L218"></a><tt class="py-lineno">218</tt> <a class="py-toggle" href="#" id="run_test-toggle" onclick="return toggle('run_test');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="PyDDS.py_dds-module.html#run_test">run_test</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="run_test-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="run_test-expanded"><a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">    <tt class="py-docstring">"""Run a series of test commands."""</tt> </tt>
-<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">    <tt class="py-name">dds</tt> <tt class="py-op">=</tt> <tt id="link-110" class="py-name"><a title="PyDDS
-PyDDS.py_dds.PyDDS" class="py-name" href="#" onclick="return doclink('link-110', 'PyDDS', 'link-4');">PyDDS</a></tt><tt class="py-op">(</tt><tt class="py-string">'../test/test.dds'</tt><tt class="py-op">)</tt> </tt>
-<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line"> </tt>
-<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">    <tt class="py-name">dds</tt><tt class="py-op">.</tt><tt id="link-111" class="py-name"><a title="PyDDS.dds_base.DDSBase.print_fields
-PyDDS.py_dds.PyDDS.print_fields" class="py-name" href="#" onclick="return doclink('link-111', 'print_fields', 'link-24');">print_fields</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line"> </tt>
-<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">    <tt class="py-name">dds</tt><tt class="py-op">.</tt><tt id="link-112" class="py-name" targets="Method PyDDS.py_dds.PyDDS.decompress()=PyDDS.py_dds.PyDDS-class.html#decompress"><a title="PyDDS.py_dds.PyDDS.decompress" class="py-name" href="#" onclick="return doclink('link-112', 'decompress', 'link-112');">decompress</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line"> </tt>
-<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">    <tt class="py-name">dds</tt><tt class="py-op">.</tt><tt id="link-113" class="py-name"><a title="PyDDS.py_dds.PyDDS.write" class="py-name" href="#" onclick="return doclink('link-113', 'write', 'link-22');">write</a></tt><tt class="py-op">(</tt><tt class="py-string">'../test/testy.dds'</tt><tt class="py-op">)</tt> </tt>
-<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">    <tt class="py-name">dds</tt><tt class="py-op">.</tt><tt id="link-114" class="py-name" targets="Method PyDDS.py_dds.PyDDS.write_to_png()=PyDDS.py_dds.PyDDS-class.html#write_to_png"><a title="PyDDS.py_dds.PyDDS.write_to_png" class="py-name" href="#" onclick="return doclink('link-114', 'write_to_png', 'link-114');">write_to_png</a></tt><tt class="py-op">(</tt><tt class="py-string">'../test/dat.png'</tt><tt class="py-op">)</tt> </tt>
-</div><a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line"> </tt>
-<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
-<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">    <tt class="py-name">DATEFMT</tt> <tt class="py-op">=</tt> <tt class="py-string">'[%H:%M:%S]'</tt> </tt>
-<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">    <tt class="py-name">FORMAT</tt> <tt class="py-op">=</tt> <tt class="py-string">'%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s:%(funcName)s(): %(message)s'</tt> </tt>
-<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line"> </tt>
-<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">    <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">basicConfig</tt><tt class="py-op">(</tt><tt class="py-name">format</tt><tt class="py-op">=</tt><tt class="py-name">FORMAT</tt><tt class="py-op">,</tt> </tt>
-<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">                        <tt class="py-name">datefmt</tt><tt class="py-op">=</tt><tt class="py-name">DATEFMT</tt><tt class="py-op">,</tt> </tt>
-<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">                        <tt class="py-name">level</tt><tt class="py-op">=</tt><tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">INFO</tt><tt class="py-op">)</tt> </tt>
-<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line"> </tt>
-<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">    <tt id="link-115" class="py-name" targets="Function PyDDS.py_dds.run_test()=PyDDS.py_dds-module.html#run_test"><a title="PyDDS.py_dds.run_test" class="py-name" href="#" onclick="return doclink('link-115', 'run_test', 'link-115');">run_test</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+</div></div><a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -363,7 +340,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun May 28 16:14:40 2017
+    Generated by Epydoc 3.0.1 on Sun May 28 16:24:46 2017
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

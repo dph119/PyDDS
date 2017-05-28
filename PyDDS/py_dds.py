@@ -214,24 +214,3 @@ class PyDDS(dds_base.DDSBase):
         fhandle.close()
 
         self.logger.info('Done creating file: %s', fname)
-
-def run_test():
-    """Run a series of test commands."""
-    dds = PyDDS('../test/test.dds')
-
-    dds.print_fields()
-
-    dds.decompress()
-
-    dds.write('../test/testy.dds')
-    dds.write_to_png('../test/dat.png')
-
-if __name__ == '__main__':
-    DATEFMT = '[%H:%M:%S]'
-    FORMAT = '%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s:%(funcName)s(): %(message)s'
-
-    logging.basicConfig(format=FORMAT,
-                        datefmt=DATEFMT,
-                        level=logging.INFO)
-
-    run_test()

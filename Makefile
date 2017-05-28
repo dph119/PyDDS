@@ -1,6 +1,6 @@
 .PHONY: lint
 lint:
-	pylint --rcfile=.pylintrc PyDDS/*py && echo "LINT PASSED" || echo "LINT FAILED."
+	pylint --rcfile=.pylintrc */*py && echo "LINT PASSED" || echo "LINT FAILED."
 
 .PHONY: test
 test:

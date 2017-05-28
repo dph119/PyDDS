@@ -20,6 +20,12 @@ class BlockCompression(object):
         self.alpha = 3
         self.components = [self.red, self.green, self.blue, self.alpha]
 
+    @staticmethod
+    def normalize(value, start_bit_width, end_bit_width):
+        """Take some value that's represented by some bit-width
+        and generate a corresponding value that is normalized over some other bit-width."""
+        return (value / 2**start_bit_width) * (2**end_bit_width)
+
     def get_bc1_colors_from_block(self, comp_block):
         """Derive the reference colors described in a block of compressed BC1 data."""
 
@@ -65,7 +71,9 @@ class BlockCompression(object):
             for color, raw_color in zip(colors, raw_colors):
                 # Extract the components
                 try:
-                    color[component] = int(raw_color[component_start[component] : component_end[component]], 2)
+                    color[component] = self.normalize(
+                        int(raw_color[component_start[component] : component_end[component]], 2),
+                        bit_width[component], 8)
                 except KeyError:
                     self.logger.warning("raw_color:")
                     self.logger.warning(raw_color)

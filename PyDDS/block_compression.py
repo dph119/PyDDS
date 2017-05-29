@@ -1,6 +1,5 @@
 #!/usr/bin/python
-"""
-block_compression.py
+"""block_compression.py
      - Define a class responsible for handling
        block-compressed (BC) texture data.
 """
@@ -145,19 +144,11 @@ class BlockCompression(object):
         # Each entry in comp_data is 1 byte.
         decomp_data = []
         for raw_comp_block in zip(*(iter(comp_data),) * 8):
-            self.logger.debug('---')
-
             # Convert the raw bytes into actual ints
             comp_block = [ord(c) for c in raw_comp_block]
 
-            self.logger.debug('comp_block:')
-            self.logger.debug(comp_block)
-
             # Get the reference colors available for this block
             colors = self.get_bc1_colors_from_block(comp_block)
-
-            self.logger.debug('colors:')
-            self.logger.debug(colors)
 
             # Get the indices for this block
             indices = ''.join([bin(byte)[2:].zfill(8) for byte in comp_block[4:]])
@@ -183,9 +174,6 @@ class BlockCompression(object):
                 assert None not in decomp_block, \
                     'All data in decomp_block must be valid at this point'
 
-            self.logger.debug('decomp_block:')
-            self.logger.debug(decomp_block)
-
             # At this point, the block is organized such that each element
             # is a pixel with 3 components
             # Re-organize this into a simple list of bytes
@@ -195,8 +183,5 @@ class BlockCompression(object):
                 formatted_decomp_block = formatted_decomp_block + pixel
 
             decomp_data = decomp_data + formatted_decomp_block
-
-            self.logger.debug('formatted_decomp_block:')
-            self.logger.debug(formatted_decomp_block)
 
         return decomp_data

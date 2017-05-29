@@ -1,10 +1,7 @@
 #!/usr/bin/python
-"""
-
-dds_base.py
+"""dds_base.py
     - Define a base class common to all classes that will be used
       to contain data of a DirectDrawSurface (.dds) file.
-
 """
 
 import abc
@@ -17,6 +14,10 @@ import math
 class DDSBase(object):
     """Reponsible for containing information common to all classes
     that will be used to constain data of a DirectDrawSurface (.dds) file."""
+
+    # TODO: Accessing some attribute, should check if it's a field
+    # and if so, call swap_endian_hex_str() on the data and return
+    # a simple int. Accessing by user is clunky otherwise.
 
     __metaclass__ = abc.ABCMeta
 
@@ -81,7 +82,8 @@ class DDSBase(object):
         return binary_value[index]
 
     def print_fields(self):
-        """Pretty print fields listed in 'fields'.
+        """Pretty print all the of a DDS file that the class is
+        responsible for.
 
         Generally print each field, the value of that field (with
         corresponding ASCII representation), and then a breakdown

@@ -16,6 +16,8 @@ class PixelSwizzle(object):
         re-arrange to a layout compatible with what is expected
         in the .png file format."""
 
+        # TODO: Generalize this method?
+
         # A decompressed block of BC1 data represents
         # a 4x4 region of screenspace.
         # Each pixel has 3 components, where each component
@@ -45,6 +47,7 @@ class PixelSwizzle(object):
         #
         # where bNrM = block N, row M (of that block)
 
+        # BOZO: Consider class defining/using class attributes
         bytes_per_block = 16 * 4 * 1
         rows_per_block = 4
         blocks_per_row = width / 4

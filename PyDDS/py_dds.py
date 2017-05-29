@@ -42,6 +42,10 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
         """If the dds data is compressed, go ahead and decompress it,
         storing the results in decompressed_data."""
 
+        # TODO: Check the format of this data to see if it even needs
+        # to be decompressed. Currently assumes the format is BC1,
+        # but obviously won't always be the case
+
         self.decompressed_data = self.block_compression.decompress_bc1(self.data)
         self.data_is_decompressed = True
 

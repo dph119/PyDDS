@@ -1,6 +1,5 @@
 #!/usr/bin/python
-"""
-pixelformat.py
+"""pixelformat.py
     - Define a class to contain the pixelformat data of a
       DirectDrawSurface (.dds) file.
 """

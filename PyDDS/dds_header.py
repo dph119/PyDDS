@@ -1,6 +1,5 @@
 #!/usr/bin/python
-"""
- dds_header.py
+"""dds_header.py
      - Define a class to contain the dds_header data of a
        DirectDrawSurface (.dds) file.
 """

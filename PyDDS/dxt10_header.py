@@ -1,10 +1,7 @@
 #!/usr/bin/python
-"""
-
-dxt10_header.py
+"""dxt10_header.py
     - Define a class to contain the dxt10_header data of a
       DirectDrawSurface (.dds) file.
-
 """
 
 import logging
@@ -15,7 +12,7 @@ class DXT10Header(dds_base.DDSBase):
     """Reponsible for containing the dxt10_header information in
     a DirectDrawSurface (.dds) file.
 
-    Note: the DXT10 header may not exist in a .dds file"""
+    Note: the DXT10 header may not exist in a given .dds file"""
 
     ##############################################################
 

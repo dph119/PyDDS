@@ -1,12 +1,9 @@
 #!/usr/bin/python
-"""
-py_dds.py
+"""py_dds.py
     - Utility for working with DirectDraw Surface file format (.dds)
     - Support to read files, look at header info.
     - Generate .dds files
-
-TODO:
-    - Convert data to PNG format and write it out
+    - Rudimentary support to convert data to PNG and write it out.
 """
 
 import sys

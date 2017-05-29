@@ -80,13 +80,7 @@ class BlockCompression(object):
         # 2. color_2 is a linear interpolation between color_0 and color_1, and color_3 is 0
         # Derive the other colors values
         color = [None] * 4
-        # These two modes of operation are defined on a per-image basis.
-        # It comes down to whether the original image had an alpha channel or not.
-        # For now, assume there is always an alpha channel. FIXME: Add support
-        # to check if it looks like an alpha channel exists.
-        if 1:
-#        if color_val[0] <= color_val[1]:
-
+        if color_val[0] <= color_val[1]:
             color[self.alpha] = 255
             for component in bit_width.iterkeys():
                 color[component] = int((1/2)*colors[0][component] + (1/2)*colors[1][component])

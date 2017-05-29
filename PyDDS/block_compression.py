@@ -35,17 +35,18 @@ class BlockCompression(object):
                      self.green : 6,
                      self.blue : 5}
 
-        component_start = {self.red : 11,
+        component_start = {self.red : 0,
                            self.green : 5,
-                           self.blue : 0}
+                           self.blue : 11}
 
         component_end = {self.red : bit_width[self.red] + component_start[self.red],
                          self.green : bit_width[self.green] + component_start[self.green],
                          self.blue : bit_width[self.blue] + component_start[self.blue]}
 
         # Add the initial, directly reported values
-        raw_colors = [''.join([bin(byte)[2:][::-1] for byte in comp_block[0:2]]).zfill(16),
-                      ''.join([bin(byte)[2:][::-1] for byte in comp_block[2:4]]).zfill(16)]
+        # Each color can be considerd a 'word'. Be sure to reverse the bytes.
+        raw_colors = [''.join([bin(byte)[2:] for byte in comp_block[0:2][::-1]]).zfill(16),
+                      ''.join([bin(byte)[2:] for byte in comp_block[2:4][::-1]]).zfill(16)]
 
         color_val = [int(raw_color, 2) for raw_color in raw_colors]
 

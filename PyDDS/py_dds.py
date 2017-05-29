@@ -166,24 +166,20 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
         self.logger.info('Reading file: %s', fname)
         fhandle = open(fname, 'rb')
 
-        # Unpack the different components of the header
+        # Unpack all the data...
         dds_header_before_pixelformat = struct.unpack(self.dds_header.before_pixelformat_packed_fmt,
                                                       fhandle.read(self.dds_header.before_pixelformat_size))
-
-        for index, field in enumerate(self.dds_header.fields_before_pixelformat):
-            self.dds_header.__dict__[field.name] = dds_header_before_pixelformat[index]
 
         pixelformat = struct.unpack(self.dds_header.pixelformat.packed_fmt,
                                     fhandle.read(self.dds_header.pixelformat.size))
 
-        for index, field in enumerate(self.dds_header.pixelformat.fields):
-            self.dds_header.pixelformat.__dict__[field.name] = pixelformat[index]
-
         dds_header_after_pixelformat = struct.unpack(self.dds_header.after_pixelformat_packed_fmt,
                                                      fhandle.read(self.dds_header.after_pixelformat_size))
 
-        for index, field in enumerate(self.dds_header.fields_after_pixelformat):
-            self.dds_header.__dict__[field.name] = dds_header_after_pixelformat[index]
+        # ... and assign the data to is corresponding fields
+        self.dds_header.set_fields(self.dds_header.fields_before_pixelformat, dds_header_before_pixelformat)
+        self.dds_header.pixelformat.set_fields(self.dds_header.pixelformat.fields, pixelformat)
+        self.dds_header.set_fields(self.dds_header.fields_after_pixelformat, dds_header_after_pixelformat)
 
         assert self.check_dds(fname), "File '%s' does not appear to be a dds file." % fname
 
@@ -197,8 +193,8 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
                 for index, field in enumerate(self.dxt10_header.fields):
                     self.dxt10_header.__dict__[field.name] = dxt10_header_data[index]
 
+        # Now read the pixel/color data
         self.data = fhandle.read()
-
         self.logger.info('Done reading file: %s', fname)
 
     def write(self, fname):

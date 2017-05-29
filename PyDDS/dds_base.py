@@ -128,3 +128,21 @@ class DDSBase(object):
                     self.logger.warning(index)
                     self.logger.warning(final_bin_val)
                     raise
+
+    def set_fields(self, fields, data):
+        """Given an array of data and field names, create corresponding attributes
+        in the class instance, assigning the corresponding data accordingly.
+
+        Args:
+            fields (list of field namedtuples): Fields to set/attributes to create
+            data (list of data values to assign to the created fields/attributes
+
+        Returns:
+            None.
+
+        Raises:
+            None.
+        """
+
+        for index, field in enumerate(fields):
+            self.__dict__[field.name] = data[index]

@@ -24,13 +24,14 @@ class DDSBase(object):
 
     ##############################################################
 
-    def __init__(self):
+    def __init__(self, debug_level=None):
         # Set up a logger
-        logging.basicConfig(format=('%(asctime)s [%(levelname)s]'
-                                    '%(filename)s:%(lineno)s:%(funcName)s(): '
-                                    '%(message)s'),
-                            datefmt='[%H:%M:%S]',
-                            level=logging.INFO)
+        if debug_level is not None:
+            logging.basicConfig(format=('%(asctime)s [%(levelname)s]'
+                                        '%(filename)s:%(lineno)s:%(funcName)s(): '
+                                        '%(message)s'),
+                                datefmt='[%H:%M:%S]',
+                                level=debug_level)
 
         self.logger = logging.getLogger(__name__)
 

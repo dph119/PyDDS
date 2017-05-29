@@ -6,6 +6,7 @@ import sys
 sys.dont_write_bytecode = True
 
 import unittest
+import logging
 import PyDDS
 
 
@@ -14,7 +15,7 @@ class TestSimple(unittest.TestCase):
 
     def setUp(self):
         # Read some test file.
-        self.test_dds = PyDDS.PyDDS('test/Test.dds')
+        self.test_dds = PyDDS.PyDDS('test/Test.dds', logging.INFO)
         self.fungus_dds = PyDDS.PyDDS('test/fungus.dds')
 
     def test_print_fields(self):

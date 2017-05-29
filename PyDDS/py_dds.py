@@ -12,7 +12,6 @@ sys.dont_write_bytecode = True
 import os
 import logging
 import struct
-import binascii
 import png
 from . import dds_header
 from . import dxt10_header
@@ -25,8 +24,8 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
 
     ##############################################################
 
-    def __init__(self, fname):
-        super(PyDDS, self).__init__()
+    def __init__(self, fname, debug_level=None):
+        super(PyDDS, self).__init__(debug_level)
         self.dds_header = dds_header.DDSHeader()
         self.dxt10_header = dxt10_header.DXT10Header()
         self.block_compression = block_compression.BlockCompression()
@@ -188,8 +187,8 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
                 for index, field in enumerate(self.dxt10_header.fields):
                     self.dxt10_header.__dict__[field.name] = dxt10_header_data[index]
 
-        # Now read the pixel/color data
-        self.data = fhandle.read()
+        # Now read the pixel/color data, converting to ints
+        self.data = [ord(c) for c in fhandle.read()]
         self.logger.info('Done reading file: %s', fname)
 
     def write(self, fname):
@@ -248,13 +247,8 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
         ########################################################################
         # Finally, write out the raw pixel data
         for byte in self.data:
-            # Check to see if we need to unhexlify the data.
-            # If it's already a string, then assume it has already
-            # been done and just write out the data as-is.
-            if isinstance(byte, str):
-                fhandle.write(byte)
-            else:
-                fhandle.write(binascii.unhexlify(byte))
+            # Data is internally stored as ints. Convert to ASCII string.
+            fhandle.write(self.convert_to_ascii(byte, 8))
 
         fhandle.close()
 

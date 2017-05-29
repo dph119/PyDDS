@@ -143,10 +143,7 @@ class BlockCompression(object):
         # So, work on 8 bytes at a time.
         # Each entry in comp_data is 1 byte.
         decomp_data = []
-        for raw_comp_block in zip(*(iter(comp_data),) * 8):
-            # Convert the raw bytes into actual ints
-            comp_block = [ord(c) for c in raw_comp_block]
-
+        for comp_block in zip(*(iter(comp_data),) * 8):
             # Get the reference colors available for this block
             colors = self.get_bc1_colors_from_block(comp_block)
 

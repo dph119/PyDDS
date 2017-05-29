@@ -16,10 +16,10 @@ class BlockCompression(object):
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.alpha = 0
-        self.red = 3
-        self.green = 2
-        self.blue = 1
+        self.alpha = 3
+        self.red = 0
+        self.green = 1
+        self.blue = 2
         self.components = [self.alpha, self.red, self.green, self.blue]
 
     @staticmethod
@@ -44,15 +44,15 @@ class BlockCompression(object):
                          self.blue : bit_width[self.blue] + component_start[self.blue]}
 
         # Add the initial, directly reported values
-        raw_colors = [''.join([bin(byte)[2:] for byte in comp_block[0:2]]).zfill(16),
-                      ''.join([bin(byte)[2:] for byte in comp_block[2:4]]).zfill(16)]
+        raw_colors = [''.join([bin(byte)[2:][::-1] for byte in comp_block[0:2]]).zfill(16),
+                      ''.join([bin(byte)[2:][::-1] for byte in comp_block[2:4]]).zfill(16)]
 
         color_val = [int(raw_color, 2) for raw_color in raw_colors]
 
         colors = []
         for raw_color in raw_colors:
             color = [None] * 4
-            color[self.alpha] = 127
+            color[self.alpha] = 255
             for component in bit_width.iterkeys():
                 # Extract the components
                 try:
@@ -81,7 +81,7 @@ class BlockCompression(object):
         if 1:
 #        if color_val[0] <= color_val[1]:
 
-            color[self.alpha] = 127
+            color[self.alpha] = 255
             for component in bit_width.iterkeys():
                 color[component] = int((1/2)*colors[0][component] + (1/2)*colors[1][component])
             colors.append(color)
@@ -144,11 +144,16 @@ class BlockCompression(object):
         # So, work on 8 bytes at a time.
         # Each entry in comp_data is 1 byte.
         decomp_data = []
-        for raw_comp_block in zip(*(iter(comp_data),) * 8):
+        for index, raw_comp_block in enumerate(zip(*(iter(comp_data),) * 8)):
             self.logger.debug('---')
 
             # Convert the raw bytes into actual ints
             comp_block = [ord(c) for c in raw_comp_block]
+
+            if index == 3551:
+                print raw_comp_block
+                print comp_block
+#                assert 0, 'got it...'
 
             self.logger.debug('comp_block:')
             self.logger.debug(comp_block)
@@ -159,20 +164,33 @@ class BlockCompression(object):
             self.logger.debug(colors)
 
             indices = ''.join([bin(byte)[2:].zfill(8) for byte in comp_block[4:]])
-
+            swapped_indices = ''
+            # For every byte of indices, swap the ordering of the pairs of bits
+            for byte in zip(*(iter(indices),) * 8):
+                for bit_pair in reversed(zip(*(iter(byte),) * 2)):
+                    swapped_indices = swapped_indices + ''.join(bit_pair)
             self.logger.debug('indices:')
             self.logger.debug(indices)
-
+            indices = swapped_indices
             assert len(indices) == 32, 'There should be 32 bits of indices.'
+
+            if index == 3551:
+                for byte in zip(*(iter(indices),) * 8):
+                    print byte
+                print indices
+#                assert 0, 'ah'
 
             decomp_block = [None] * 16
 
-            for index, first_bit in enumerate(indices[::2]):
-                value = int(first_bit + indices[index + 1], 2)
+            for _index, bit_pair in enumerate(zip(*(iter(indices),) * 2)):
+                value = int(''.join(bit_pair), 2)
+                if index == 3551:
+                    print bit_pair
+                    print value
                 try:
-                    decomp_block[index] = colors[value]
+                    decomp_block[_index] = colors[value]
                 except IndexError:
-                    self.logger.warning('index: %s, value: %s', index, value)
+                    self.logger.warning('index: %s, value: %s', _index, value)
                     raise
 
             if None in decomp_block:

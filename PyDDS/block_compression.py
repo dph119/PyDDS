@@ -44,7 +44,7 @@ class BlockCompression(object):
                          self.blue : bit_width[self.blue] + component_start[self.blue]}
 
         # Add the initial, directly reported values
-        # Each color can be considerd a 'word'. Be sure to reverse the bytes.
+        # Each color is considerd a 'word'. Be sure to reverse the bytes.
         raw_colors = [''.join([bin(byte)[2:] for byte in comp_block[0:2][::-1]]).zfill(16),
                       ''.join([bin(byte)[2:] for byte in comp_block[2:4][::-1]]).zfill(16)]
 

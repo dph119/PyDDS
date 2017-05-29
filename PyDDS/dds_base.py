@@ -6,7 +6,6 @@
 
 import abc
 from collections import namedtuple
-import binascii
 import logging
 import math
 
@@ -14,10 +13,6 @@ import math
 class DDSBase(object):
     """Reponsible for containing information common to all classes
     that will be used to constain data of a DirectDrawSurface (.dds) file."""
-
-    # TODO: Accessing some attribute, should check if it's a field
-    # and if so, call swap_endian_hex_str() on the data and return
-    # a simple int. Accessing by user is clunky otherwise.
 
     __metaclass__ = abc.ABCMeta
 
@@ -30,7 +25,43 @@ class DDSBase(object):
     ##############################################################
 
     def __init__(self):
+        # Set up a logger
+        logging.basicConfig(format=('%(asctime)s [%(levelname)s]'
+                                    '%(filename)s:%(lineno)s:%(funcName)s(): '
+                                    '%(message)s'),
+                            datefmt='[%H:%M:%S]',
+                            level=logging.INFO)
+
         self.logger = logging.getLogger(__name__)
+
+    @staticmethod
+    def convert_to_ascii(value, field_size_bits=None):
+        """Given some binary string, convert it into an ASCII string.
+
+        Args:
+            value (string or int): Value to convert to ASCII. If it's a string,
+                assume it is a binary string.
+                If it is an int, it will be internally converted to a binary string.
+            field_size_bits (int): Size of value in bits. This is only used if
+                we are given an int value and need to convert it to binary.
+
+        Returns:
+            ascii_str (string): ASCII representation of value.
+
+        Raises:
+            ValueError: If an int is provided, we will need to convert it to a binary
+                string and look at field_size_bits, which must be a valid value.
+        """
+
+        if isinstance(value, int):
+            if field_size_bits is None:
+                raise ValueError, ('Need to convert value to a binary string, but a valid '
+                                   'value of field_size_bits was not provided.')
+            value = bin(value)[2:].zfill(field_size_bits)
+
+        # Work on 8 bits at a time, converting them to an int, and then to an ASCII char.
+        # Then concatenate all the chars together into a string.
+        return ''.join([chr(int(''.join(byte), 2)) for byte in zip(*(iter(value),) * 8)])
 
     @staticmethod
     def swap_endian_hex_str(string):
@@ -75,7 +106,7 @@ class DDSBase(object):
             self.logger.error("Flag '%s' does not appear to exist.", flag_name)
             raise
 
-        hex_value = int(getattr(self, field_name).encode('hex'), 16)
+        hex_value = getattr(self, field_name)
         binary_value = bin(hex_value)[2:].zfill(field_size * 8)
         index = int(round(math.log(flag.value, 2)))
 
@@ -99,24 +130,18 @@ class DDSBase(object):
                                if _field.name == field.name][0] * 8
             matching_flags = [flag for flag in self.flags if flag.field_name == field.name]
 
-            # We need to do an endian swap because the struct module does not
-            # do any endian swapping for char arrays (which is the format used when reading the file)
-            # BOZO: May just be better to stick to using actual ints/doubles to describe
-            # the length of the fields to avoid needing this function
-            # Update: Tried it -- just opens up another can of worms around correctly interpreting the
-            # int values you get back. Doesn't seem worth it atm.
             try:
-                final_val = int(self.swap_endian_hex_str(getattr(self, field.name).encode('hex')), 16)
+                final_val = getattr(self, field.name)
             except AttributeError:
                 # If the field does not exist, then just move on to the next one
                 continue
 
-            bin_val = bin(final_val)[2::]
+            bin_val = bin(final_val)[2:]
             padded_bin_val = bin_val.zfill(field_size_bits)
             final_bin_val = padded_bin_val[::-1]
 
             print field.name, hex(final_val), '(%s)' % final_val, \
-                binascii.unhexlify(getattr(self, field.name).encode('hex'))
+                self.convert_to_ascii(padded_bin_val, field_size_bits)[::-1]
 
             for flag in matching_flags:
                 index = int(round(math.log(flag.value, 2)))
@@ -145,4 +170,5 @@ class DDSBase(object):
         """
 
         for index, field in enumerate(fields):
-            self.__dict__[field.name] = data[index]
+            # Convert the data from ASCII representation to int
+            self.__dict__[field.name] = int(self.swap_endian_hex_str(data[index].encode('hex')), 16)

@@ -2,12 +2,14 @@
     - Define a class of simple unit tests.
 """
 
+import sys
+sys.dont_write_bytecode = True
+
 import unittest
-import logging
 import PyDDS
 
 
-class SimpleTest(unittest.TestCase):
+class TestSimple(unittest.TestCase):
     """Define some simple unit tests."""
 
     def setUp(self):
@@ -15,12 +17,9 @@ class SimpleTest(unittest.TestCase):
         self.test_dds = PyDDS.PyDDS('test/Test.dds')
         self.fungus_dds = PyDDS.PyDDS('test/fungus.dds')
 
-        # Set up the logger
-        logging.basicConfig(format=('%(asctime)s [%(levelname)s]'
-                                    '%(filename)s:%(lineno)s:%(funcName)s(): '
-                                    '%(message)s'),
-                            datefmt='[%H:%M:%S]',
-                            level=logging.INFO)
+    def test_print_fields(self):
+        """Simply print the header information of Test.dds"""
+        self.test_dds.print_fields()
 
     def test_swizzle(self):
         """Swizzle some data to png format."""

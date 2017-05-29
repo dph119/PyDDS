@@ -45,8 +45,13 @@ class BlockCompression(object):
 
         # Add the initial, directly reported values
         # Each color is considerd a 'word'. Be sure to reverse the bytes.
-        raw_colors = [''.join([bin(byte)[2:] for byte in comp_block[0:2][::-1]]).zfill(16),
-                      ''.join([bin(byte)[2:] for byte in comp_block[2:4][::-1]]).zfill(16)]
+        raw_colors = [''.join([bin(byte)[2:].zfill(8) for byte in comp_block[0:2][::-1]]).zfill(16),
+                      ''.join([bin(byte)[2:].zfill(8) for byte in comp_block[2:4][::-1]]).zfill(16)]
+
+        print '-----'
+        print 'raw_colors:', raw_colors
+        print comp_block[0:2]
+        print comp_block[2:4]
 
         color_val = [int(raw_color, 2) for raw_color in raw_colors]
 
@@ -151,15 +156,16 @@ class BlockCompression(object):
             # Convert the raw bytes into actual ints
             comp_block = [ord(c) for c in raw_comp_block]
 
-            if index == 3551:
-                print raw_comp_block
-                print comp_block
-#                assert 0, 'got it...'
-
             self.logger.debug('comp_block:')
             self.logger.debug(comp_block)
 
             colors = self.get_bc1_colors_from_block(comp_block)
+
+            if index == 4063:
+                print raw_comp_block
+                print comp_block
+                print 'colors:', colors
+
 
             self.logger.debug('colors:')
             self.logger.debug(colors)
@@ -175,23 +181,14 @@ class BlockCompression(object):
             indices = swapped_indices
             assert len(indices) == 32, 'There should be 32 bits of indices.'
 
-            if index == 3551:
-                for byte in zip(*(iter(indices),) * 8):
-                    print byte
-                print indices
-#                assert 0, 'ah'
-
             decomp_block = [None] * 16
 
-            for _index, bit_pair in enumerate(zip(*(iter(indices),) * 2)):
+            for index, bit_pair in enumerate(zip(*(iter(indices),) * 2)):
                 value = int(''.join(bit_pair), 2)
-                if index == 3551:
-                    print bit_pair
-                    print value
                 try:
-                    decomp_block[_index] = colors[value]
+                    decomp_block[index] = colors[value]
                 except IndexError:
-                    self.logger.warning('index: %s, value: %s', _index, value)
+                    self.logger.warning('index: %s, value: %s', index, value)
                     raise
 
             if None in decomp_block:

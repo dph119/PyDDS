@@ -16,11 +16,11 @@ class BlockCompression(object):
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.red = 0
-        self.green = 1
-        self.blue = 2
-        self.alpha = 3
-        self.components = [self.red, self.green, self.blue, self.alpha]
+        self.alpha = 0
+        self.red = 3
+        self.green = 2
+        self.blue = 1
+        self.components = [self.alpha, self.red, self.green, self.blue]
 
     @staticmethod
     def normalize(value, start_bit_width, end_bit_width):
@@ -35,7 +35,7 @@ class BlockCompression(object):
                      self.green : 6,
                      self.blue : 5}
 
-        component_start = {self.red : 10,
+        component_start = {self.red : 11,
                            self.green : 5,
                            self.blue : 0}
 
@@ -51,7 +51,8 @@ class BlockCompression(object):
 
         colors = []
         for raw_color in raw_colors:
-            color = [None] * 3
+            color = [None] * 4
+            color[self.alpha] = 127
             for component in bit_width.iterkeys():
                 # Extract the components
                 try:
@@ -72,25 +73,34 @@ class BlockCompression(object):
         # 1. color_2 and color_3 are linear interpolations between color_0 and color_1
         # 2. color_2 is a linear interpolation between color_0 and color_1, and color_3 is 0
         # Derive the other colors values
-        color = [None] * len(bit_width.keys())
-        if color_val[0] <= color_val[1]:
+        color = [None] * 4
+        # These two modes of operation are defined on a per-image basis.
+        # It comes down to whether the original image had an alpha channel or not.
+        # For now, assume there is always an alpha channel. FIXME: Add support
+        # to check if it looks like an alpha channel exists.
+        if 1:
+#        if color_val[0] <= color_val[1]:
+
+            color[self.alpha] = 127
             for component in bit_width.iterkeys():
                 color[component] = int((1/2)*colors[0][component] + (1/2)*colors[1][component])
             colors.append(color)
-            colors.append([0, 0, 0])
+            colors.append([0, 0, 0, 0])
         else:
-            color = [None] * 3
+            color = [None] * 4
+            color[self.alpha] = 255
             for component in bit_width.iterkeys():
                 color[component] = int((2/3)*colors[0][component] + (1/3)*colors[1][component])
             colors.append(color)
 
-            color = [None] * 3
+            color = [None] * 4
+            color[self.alpha] = 255
             for component in bit_width.iterkeys():
                 color[component] = int((1/3)*colors[0][component] + (2/3)*colors[1][component])
             colors.append(color)
 
         for color in colors:
-            assert len(color) == 3, 'Each color must have 3 components at this point.'
+            assert len(color) == 4, 'Each color must have 4 components at this point.'
 
         return colors
 

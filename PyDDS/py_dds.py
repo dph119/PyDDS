@@ -69,13 +69,13 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
 
         swizzled_data = self.swizzle_decompressed_bc1_to_png(data, width)
 
-        writer = png.Writer(width, height)
+        writer = png.Writer(width, height, alpha=True)
 
         # PNG expects the data to be presented in "boxed row flat pixel" format:
         # list([R,G,B, R,G,B, R,G,B],
         #      [R,G,B, R,G,B, R,G,B])
         # Each row will be width * # components elements * # bytes/component
-        formatted_data = zip(*(iter(swizzled_data),) * (width * 3 * 1))
+        formatted_data = zip(*(iter(swizzled_data),) * (width * 4 * 1))
 
         writer.write(fhandle, formatted_data)
         fhandle.close()

@@ -45,7 +45,7 @@ class PixelSwizzle(object):
         #
         # where bNrM = block N, row M (of that block)
 
-        bytes_per_block = 48
+        bytes_per_block = 16 * 4 * 1
         rows_per_block = 4
         blocks_per_row = width / 4
         bytes_per_block_row = bytes_per_block / rows_per_block

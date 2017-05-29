@@ -62,18 +62,28 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
 
         height = int(self.swap_endian_hex_str(self.dds_header.dwHeight.encode('hex')), 16)
         width = int(self.swap_endian_hex_str(self.dds_header.dwWidth.encode('hex')), 16)
+        height = int(self.swap_endian_hex_str(self.dds_header.dwHeight.encode('hex')), 16)
+
+        # Check to see if the data contains mipmaps
+        # If it does, truncate out everything beyond mip0
+        # TODO: Eventually add support to specify which mip level to write out
+        mip_map_count = int(self.swap_endian_hex_str(self.dds_header.dwMipMapCount.encode('hex')), 16)
+
+        if mip_map_count > 0:
+            # Calculate the size of mip 0 in bytes
+            # (number of pixels in mip0) * (bytes/pixel)
+            mip0_size = width * height * 4
+            data = data[:mip0_size]
 
         self.logger.info('Creating PNG file: %s (width, height = %d,%d)', fname, width, height)
 
         fhandle = open(fname, 'wb')
-
         swizzled_data = self.swizzle_decompressed_bc1_to_png(data, width)
-
         writer = png.Writer(width, height, alpha=True)
 
         # PNG expects the data to be presented in "boxed row flat pixel" format:
-        # list([R,G,B, R,G,B, R,G,B],
-        #      [R,G,B, R,G,B, R,G,B])
+        # list([R,G,B,A  R,G,B,A  R,G,B,A],
+        #      [R,G,B,A  R,G,B,A  R,G,B,A])
         # Each row will be width * # components elements * # bytes/component
         formatted_data = zip(*(iter(swizzled_data),) * (width * 4 * 1))
 

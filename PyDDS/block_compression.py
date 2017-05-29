@@ -6,8 +6,6 @@ block_compression.py
 """
 
 from __future__ import division
-import itertools
-from pprint import pprint
 import logging
 
 
@@ -47,11 +45,6 @@ class BlockCompression(object):
         # Each color is considerd a 'word'. Be sure to reverse the bytes.
         raw_colors = [''.join([bin(byte)[2:].zfill(8) for byte in comp_block[0:2][::-1]]).zfill(16),
                       ''.join([bin(byte)[2:].zfill(8) for byte in comp_block[2:4][::-1]]).zfill(16)]
-
-        print '-----'
-        print 'raw_colors:', raw_colors
-        print comp_block[0:2]
-        print comp_block[2:4]
 
         color_val = [int(raw_color, 2) for raw_color in raw_colors]
 
@@ -144,7 +137,7 @@ class BlockCompression(object):
         # So, work on 8 bytes at a time.
         # Each entry in comp_data is 1 byte.
         decomp_data = []
-        for index, raw_comp_block in enumerate(zip(*(iter(comp_data),) * 8)):
+        for raw_comp_block in zip(*(iter(comp_data),) * 8):
             self.logger.debug('---')
 
             # Convert the raw bytes into actual ints
@@ -155,35 +148,26 @@ class BlockCompression(object):
 
             colors = self.get_bc1_colors_from_block(comp_block)
 
-            if index == 4063:
-                print raw_comp_block
-                print comp_block
-                print 'colors:', colors
-
-
             self.logger.debug('colors:')
             self.logger.debug(colors)
 
             indices = ''.join([bin(byte)[2:].zfill(8) for byte in comp_block[4:]])
             swapped_indices = ''
+
             # For every byte of indices, swap the ordering of the pairs of bits
             for byte in zip(*(iter(indices),) * 8):
                 for bit_pair in reversed(zip(*(iter(byte),) * 2)):
                     swapped_indices = swapped_indices + ''.join(bit_pair)
-            self.logger.debug('indices:')
-            self.logger.debug(indices)
+
             indices = swapped_indices
             assert len(indices) == 32, 'There should be 32 bits of indices.'
 
             decomp_block = [None] * 16
 
             for index, bit_pair in enumerate(zip(*(iter(indices),) * 2)):
-                value = int(''.join(bit_pair), 2)
-                try:
-                    decomp_block[index] = colors[value]
-                except IndexError:
-                    self.logger.warning('index: %s, value: %s', index, value)
-                    raise
+                # Combine the pair of bits and convert into an int.
+                # That's our index.
+                decomp_block[index] = colors[int(''.join(bit_pair), 2)]
 
             if None in decomp_block:
                 self.logger.warning('decomp_block:')

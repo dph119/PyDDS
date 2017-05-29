@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>PyDDS.dds_header</title>
+  <title>PyDDS.pixel_swizzle.PixelSwizzle</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -43,7 +43,8 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="PyDDS-module.html">Package&nbsp;PyDDS</a> ::
-        Module&nbsp;dds_header
+        <a href="PyDDS.pixel_swizzle-module.html">Module&nbsp;pixel_swizzle</a> ::
+        Class&nbsp;PixelSwizzle
       </span>
     </td>
     <td>
@@ -53,60 +54,74 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="PyDDS.dds_header-module.html"
+            >]&nbsp;|&nbsp;<a href="PyDDS.pixel_swizzle.PixelSwizzle-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
-<!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module dds_header</h1><p class="nomargin-top"><span class="codelink"><a href="PyDDS.dds_header-pysrc.html">source&nbsp;code</a></span></p>
-<p>dds_header.py</p>
-  <ul>
-    <li>
-      Define a class to contain the dds_header data of a DirectDrawSurface 
-      (.dds) file.
-    </li>
-  </ul>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PixelSwizzle</h1><p class="nomargin-top"><span class="codelink"><a href="PyDDS.pixel_swizzle-pysrc.html#PixelSwizzle">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_pydds_pi" name="uml_class_diagram_for_pydds_pi">
+<area shape="rect" id="node1_1" href="PyDDS.pixel_swizzle.PixelSwizzle-class.html#swizzle_decompressed_bc1_to_png" title="Given decompressed BC1 texture data, re&#45;arrange to a layout compatible with what is expected in the .png file format." alt="" coords="17,37,305,57"/>
+<area shape="rect" id="node1" href="PyDDS.pixel_swizzle.PixelSwizzle-class.html" title="Responsible for handling swizzling of pixel data." alt="" coords="5,5,317,64"/>
+<area shape="rect" id="node2" href="PyDDS.py_dds.PyDDS-class.html" title="Reponsible for containing the pixelformat information in a DirectDrawSurface (.dds) file." alt="" coords="98,83,225,121"/>
+</map>
+  <img src="uml_class_diagram_for_pydds_pi.gif" alt='' usemap="#uml_class_diagram_for_pydds_pi" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<p>Responsible for handling swizzling of pixel data.</p>
 
-<!-- ==================== CLASSES ==================== -->
-<a name="section-Classes"></a>
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td colspan="2" class="table-header">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr valign="top">
-        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="left"><span class="table-header">Instance Methods</span></td>
         <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Classes"
+         ><span class="options">[<a href="#section-InstanceMethods"
          class="privatelink" onclick="toggle_private();"
          >hide private</a>]</span></td>
       </tr>
     </table>
   </td>
 </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="PyDDS.dds_header.DDSHeader-class.html" class="summary-name">DDSHeader</a><br />
-      Reponsible for containing the dds_header information in a 
-        DirectDrawSurface (.dds) file.
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__init__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
     </td>
   </tr>
 </table>
-<!-- ==================== VARIABLES ==================== -->
-<a name="section-Variables"></a>
+<!-- ==================== STATIC METHODS ==================== -->
+<a name="section-StaticMethods"></a>
 <table class="summary" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td colspan="2" class="table-header">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr valign="top">
-        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="left"><span class="table-header">Static Methods</span></td>
         <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Variables"
+         ><span class="options">[<a href="#section-StaticMethods"
          class="privatelink" onclick="toggle_private();"
          >hide private</a>]</span></td>
       </tr>
@@ -117,7 +132,44 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'PyDDS'"><code class="variable-quote">'</code><code class="variable-string">PyDDS</code><code class="variable-quote">'</code></code>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="swizzle_decompressed_bc1_to_png"></a><span class="summary-sig-name">swizzle_decompressed_bc1_to_png</span>(<span class="summary-sig-arg">data</span>,
+        <span class="summary-sig-arg">width</span>)</span><br />
+      Given decompressed BC1 texture data, re-arrange to a layout 
+      compatible with what is expected in the .png file format.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="PyDDS.pixel_swizzle-pysrc.html#PixelSwizzle.swizzle_decompressed_bc1_to_png">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -152,7 +204,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon May 29 00:53:11 2017
+    Generated by Epydoc 3.0.1 on Mon May 29 00:53:12 2017
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

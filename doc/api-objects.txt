@@ -8,11 +8,14 @@ PyDDS.dds_header	PyDDS.dds_header-module.html
 PyDDS.dds_header.__package__	PyDDS.dds_header-module.html#__package__
 PyDDS.dxt10_header	PyDDS.dxt10_header-module.html
 PyDDS.dxt10_header.__package__	PyDDS.dxt10_header-module.html#__package__
+PyDDS.pixel_swizzle	PyDDS.pixel_swizzle-module.html
+PyDDS.pixel_swizzle.__package__	PyDDS.pixel_swizzle-module.html#__package__
 PyDDS.pixelformat	PyDDS.pixelformat-module.html
 PyDDS.pixelformat.__package__	PyDDS.pixelformat-module.html#__package__
 PyDDS.py_dds	PyDDS.py_dds-module.html
 PyDDS.py_dds.__package__	PyDDS.py_dds-module.html#__package__
 PyDDS.block_compression.BlockCompression	PyDDS.block_compression.BlockCompression-class.html
+PyDDS.block_compression.BlockCompression.normalize	PyDDS.block_compression.BlockCompression-class.html#normalize
 PyDDS.block_compression.BlockCompression.decompress_bc1	PyDDS.block_compression.BlockCompression-class.html#decompress_bc1
 PyDDS.block_compression.BlockCompression.get_bc1_colors_from_block	PyDDS.block_compression.BlockCompression-class.html#get_bc1_colors_from_block
 PyDDS.block_compression.BlockCompression.__init__	PyDDS.block_compression.BlockCompression-class.html#__init__
@@ -84,6 +87,8 @@ PyDDS.dds_base.DDSBase.get_flag_value	PyDDS.dds_base.DDSBase-class.html#get_flag
 PyDDS.dds_base.DDSBase.UINT	PyDDS.dds_base.DDSBase-class.html#UINT
 PyDDS.dds_base.DDSBase._abc_negative_cache_version	PyDDS.dds_base.DDSBase-class.html#_abc_negative_cache_version
 PyDDS.dds_base.DDSBase._abc_registry	PyDDS.dds_base.DDSBase-class.html#_abc_registry
+PyDDS.pixel_swizzle.PixelSwizzle	PyDDS.pixel_swizzle.PixelSwizzle-class.html
+PyDDS.pixel_swizzle.PixelSwizzle.swizzle_decompressed_bc1_to_png	PyDDS.pixel_swizzle.PixelSwizzle-class.html#swizzle_decompressed_bc1_to_png
 PyDDS.pixelformat.Pixelformat	PyDDS.pixelformat.Pixelformat-class.html
 PyDDS.dds_base.DDSBase.dds_field	PyDDS.dds_base.DDSBase.dds_field-class.html
 PyDDS.dds_base.DDSBase.__metaclass__	abc.ABCMeta-class.html
@@ -113,6 +118,7 @@ PyDDS.py_dds.PyDDS.write	PyDDS.py_dds.PyDDS-class.html#write
 PyDDS.py_dds.PyDDS.write_to_png	PyDDS.py_dds.PyDDS-class.html#write_to_png
 PyDDS.py_dds.PyDDS.print_fields	PyDDS.py_dds.PyDDS-class.html#print_fields
 PyDDS.dds_base.DDSBase.get_flag_value	PyDDS.dds_base.DDSBase-class.html#get_flag_value
+PyDDS.pixel_swizzle.PixelSwizzle.swizzle_decompressed_bc1_to_png	PyDDS.pixel_swizzle.PixelSwizzle-class.html#swizzle_decompressed_bc1_to_png
 PyDDS.py_dds.PyDDS.read	PyDDS.py_dds.PyDDS-class.html#read
 PyDDS.py_dds.PyDDS.decompress	PyDDS.py_dds.PyDDS-class.html#decompress
 PyDDS.dds_base.DDSBase.UINT	PyDDS.dds_base.DDSBase-class.html#UINT

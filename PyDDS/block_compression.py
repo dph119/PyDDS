@@ -133,6 +133,13 @@ class BlockCompression(object):
         #
         # color_2 = 2/3*color_0 + 1/3*color_1
         # color_3 = 1/3*color_0 + 2/3*color_1
+        #
+        # General note on data structures here: Endianness is on a per 'word'
+        # basis, and each word is really just whatever datatype is actually
+        # used in DX. So, you can have a word of 2-bytes (such as how color_0 and
+        # color_1 are described) and need to swap the bytes,
+        # or you can have a word of 1-byte of 2-bits (a row of indices to
+        # available colors for a given pixel) and need to swap the ordering of the bits.
 
         # So, work on 8 bytes at a time.
         # Each entry in comp_data is 1 byte.
@@ -146,11 +153,13 @@ class BlockCompression(object):
             self.logger.debug('comp_block:')
             self.logger.debug(comp_block)
 
+            # Get the reference colors available for this block
             colors = self.get_bc1_colors_from_block(comp_block)
 
             self.logger.debug('colors:')
             self.logger.debug(colors)
 
+            # Get the indices for this block
             indices = ''.join([bin(byte)[2:].zfill(8) for byte in comp_block[4:]])
             swapped_indices = ''
 
@@ -163,7 +172,6 @@ class BlockCompression(object):
             assert len(indices) == 32, 'There should be 32 bits of indices.'
 
             decomp_block = [None] * 16
-
             for index, bit_pair in enumerate(zip(*(iter(indices),) * 2)):
                 # Combine the pair of bits and convert into an int.
                 # That's our index.

@@ -21,7 +21,7 @@ from . import block_compression
 from . import pixel_swizzle
 
 class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
-    """Reponsible for containing the pixelformat information in
+    """Reponsible for containing all information of
     a DirectDrawSurface (.dds) file."""
 
     ##############################################################
@@ -98,6 +98,53 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
         self.dds_header.pixelformat.print_fields()
         self.dxt10_header.print_fields()
 
+    def check_dds(self, fname):
+        """Check the check the data extracted from file to see if this does
+        appear to be an actual .dds file."""
+
+        is_dds = True
+
+        # To quote MSDN:
+        # To validate a DDS file, a reader should ensure the file
+        # is at least 128 bytes long to accommodate the magic value
+        # and basic header, the magic value is 0x20534444 ("DDS "),
+        # the DDS_HEADER size is 124, and the DDS_PIXELFORMAT in the
+        # header size is 32. If the DDS_PIXELFORMAT dwFlags is set to
+        # DDPF_FOURCC and a dwFourCC is set to "DX10", then the total
+        # file size needs to be at least 148 bytes.
+
+        file_size_bytes = os.path.getsize(fname)
+        # Check for minimum file size
+        if file_size_bytes < 128:
+            self.logger.debug("File size (bytes) is: '%d'.", file_size_bytes)
+            is_dds = False
+
+        # Check the magic number
+        if str(self.dds_header.dwMagic) != 'DDS ':
+            self.logger.debug("Magic number read: '%s'.", self.dds_header.dwMagic)
+            is_dds = False
+
+        # Check the size of DDS_HEADER
+        dds_header_size = int(self.swap_endian_hex_str(self.dds_header.dwSize.encode('hex')), 16)
+        if dds_header_size != 124:
+            self.logger.debug("DDS_HEADER Size: '%d'.", dds_header_size)
+            is_dds = False
+
+        # Check the size of DDS_PIXELFORMAT
+        dds_pixelformat_size = int(self.swap_endian_hex_str(self.dds_header.pixelformat.dwSize.encode('hex')), 16)
+        if dds_pixelformat_size != 32:
+            self.logger.debug("DDS_PIXELFORMAT Size: '%d'.", dds_pixelformat_size)
+            is_dds = False
+
+        # Check for a larger minimum filesize if DXT10 format is specified
+        if int(self.dds_header.pixelformat.get_flag_value('dwFlags', 'DDPF_FOURCC')):
+            if self.dds_header.pixelformat.dwFourCC == 'DXT10':
+                if file_size_bytes < 148:
+                    self.logger.debug("File size (bytes) with DXT10 header is: '%d'.", file_size_bytes)
+                    is_dds = False
+
+        return is_dds
+
     def read(self, fname):
         """Read a DirectDraw Surface file (.dds)
 
@@ -138,13 +185,7 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
         for index, field in enumerate(self.dds_header.fields_after_pixelformat):
             self.dds_header.__dict__[field.name] = dds_header_after_pixelformat[index]
 
-        # Make sure we're actually working with a .dds file
-        # Check the magic number
-        # BOZO: This is one of several checks we can do. Add the others (i.e. values of 'size' fields)
-        # Put this into some sort of checkDDS() function
-        if str(self.dds_header.dwMagic) != 'DDS ':
-            self.logger.warning("Magic number read: '%s'.", self.dds_header.dwMagic)
-            raise TypeError, "File '%s' is not a dds file based on header information" % fname
+        assert self.check_dds(fname), "File '%s' does not appear to be a dds file." % fname
 
         # If the DDS_PIXELFORMAT dwFlags is set to DDPF_FOURCC and dwFourCC
         # is set to "DX10" an additional DDS_HEADER_DXT10 structure will be present.

@@ -6,6 +6,8 @@ block_compression.py
 """
 
 from __future__ import division
+import itertools
+from pprint import pprint
 import logging
 
 
@@ -24,7 +26,7 @@ class BlockCompression(object):
     def normalize(value, start_bit_width, end_bit_width):
         """Take some value that's represented by some bit-width
         and generate a corresponding value that is normalized over some other bit-width."""
-        return (value / 2**start_bit_width) * (2**end_bit_width)
+        return int((value / (2**start_bit_width)) * (2**end_bit_width))
 
     def get_bc1_colors_from_block(self, comp_block):
         """Derive the reference colors described in a block of compressed BC1 data."""
@@ -47,28 +49,10 @@ class BlockCompression(object):
 
         color_val = [int(raw_color, 2) for raw_color in raw_colors]
 
-        # Based on how color_0 and color_1 relate to each other, we can be in one of two modes:
-        # 1. color_2 and color_3 are linear interpolations between color_0 and color_1
-        # 2. color_2 is a linear interpolation between color_0 and color_1, and color_3 is 0
-        # Derive the other colors values
-        if color_val[0] <= color_val[1]:
-            color_val = color_val + [int((1/2)*color_val[0] + (1/2)*color_val[1]),
-                                     0]
-        else:
-            color_val = color_val + [int((2/3)*color_val[0] + (1/3)*color_val[1]),
-                                     int((1/3)*color_val[0] + (2/3)*color_val[1])]
-
-        # Add the derived values
-        raw_colors = raw_colors + [bin(color_val[2])[2:].zfill(16), \
-                                   bin(color_val[3])[2:].zfill(16)]
-
-        colors = [[None] * 3] * 4
-
-        assert len(colors) == len(raw_colors), 'colors and raw_colors must be the same length.'
-        assert None not in raw_colors, 'raw_colors must have valid values at this point'
-
-        for component in bit_width.iterkeys():
-            for color, raw_color in zip(colors, raw_colors):
+        colors = []
+        for raw_color in raw_colors:
+            color = [None] * 3
+            for component in bit_width.iterkeys():
                 # Extract the components
                 try:
                     color[component] = self.normalize(
@@ -82,6 +66,31 @@ class BlockCompression(object):
                     self.logger.warning("component:")
                     self.logger.warning(component)
                     raise
+            colors.append(color)
+
+        # Based on how color_0 and color_1 relate to each other, we can be in one of two modes:
+        # 1. color_2 and color_3 are linear interpolations between color_0 and color_1
+        # 2. color_2 is a linear interpolation between color_0 and color_1, and color_3 is 0
+        # Derive the other colors values
+        color = [None] * len(bit_width.keys())
+        if color_val[0] <= color_val[1]:
+            for component in bit_width.iterkeys():
+                color[component] = int((1/2)*colors[0][component] + (1/2)*colors[1][component])
+            colors.append(color)
+            colors.append([0, 0, 0])
+        else:
+            color = [None] * 3
+            for component in bit_width.iterkeys():
+                color[component] = int((2/3)*colors[0][component] + (1/3)*colors[1][component])
+            colors.append(color)
+
+            color = [None] * 3
+            for component in bit_width.iterkeys():
+                color[component] = int((1/3)*colors[0][component] + (2/3)*colors[1][component])
+            colors.append(color)
+
+        for color in colors:
+            assert len(color) == 3, 'Each color must have 3 components at this point.'
 
         return colors
 

@@ -21,8 +21,7 @@ from . import block_compression
 from . import pixel_swizzle
 
 class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
-    """Reponsible for containing all information of
-    a DirectDrawSurface (.dds) file."""
+    """Reponsible for managing all DirectDrawSurface (.dds) file data."""
 
     ##############################################################
 
@@ -243,8 +242,8 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
                     field_size_bits = [_field.byte_size for _field in self.dxt10_header.fields \
                                        if _field.name == field.name][0] * 8
 
-                    final_val = getattr(dxt10_header, field.name).encode('hex').zfill(field_size_bits / 4)
-                    fhandle.write(binascii.unhexlify(final_val))
+                    final_val = getattr(dxt10_header, field.name)
+                    fhandle.write(self.convert_to_ascii(final_val, field_size_bits)[::-1])
 
         ########################################################################
         # Finally, write out the raw pixel data

@@ -7,7 +7,7 @@
 import logging
 from . import dds_base
 from . import pixelformat
-
+from . import dx
 
 
 class DDSHeader(dds_base.DDSBase):
@@ -81,3 +81,12 @@ class DDSHeader(dds_base.DDSBase):
         self.packed_fmt = self.before_pixelformat_packed_fmt \
                           + self.pixelformat.packed_fmt \
                           + self.after_pixelformat_packed_fmt
+
+    @property
+    def format(self):
+        """Get the format described in the dds header."""
+        field_size_bits = [_field.byte_size for _field in self.pixelformat.fields \
+                           if _field.name == 'dwFourCC'][0] * 8
+
+        dds_format = self.convert_to_ascii(self.pixelformat.dwFourCC, field_size_bits)[::-1]
+        return dx.DDS_FMT2STR[dds_format]

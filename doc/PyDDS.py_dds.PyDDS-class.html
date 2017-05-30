@@ -64,31 +64,34 @@
 <h1 class="epydoc">Class PyDDS</h1><p class="nomargin-top"><span class="codelink"><a href="PyDDS.py_dds-pysrc.html#PyDDS">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pydds_py" name="uml_class_diagram_for_pydds_py">
-<area shape="rect" id="node1_15" href="PyDDS.py_dds.PyDDS-class.html#__init__" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="232,250,385,270"/>
-<area shape="rect" id="node1_16" href="PyDDS.py_dds.PyDDS-class.html#decompress" title="If the dds data is compressed, go ahead and decompress it, storing the &#160;results in decompressed_data." alt="" coords="232,270,385,290"/>
-<area shape="rect" id="node1_17" href="PyDDS.py_dds.PyDDS-class.html#write_to_png" title="Write out the pixel data to a .png file." alt="" coords="232,290,385,310"/>
-<area shape="rect" id="node1_18" href="PyDDS.py_dds.PyDDS-class.html#print_fields" title="Pretty print fields listed in &#39;fields&#39;." alt="" coords="232,310,385,330"/>
-<area shape="rect" id="node1_19" href="PyDDS.py_dds.PyDDS-class.html#read" title="Read a DirectDraw Surface file (.dds)" alt="" coords="232,330,385,350"/>
-<area shape="rect" id="node1_20" href="PyDDS.py_dds.PyDDS-class.html#write" title="Create a DirectDraw Surface (.dds) file." alt="" coords="232,350,385,370"/>
-<area shape="rect" id="node1" href="PyDDS.py_dds.PyDDS-class.html" title="Reponsible for containing the pixelformat information in a DirectDrawSurface (.dds) file." alt="" coords="219,217,397,376"/>
-<area shape="rect" id="node2_21" href="PyDDS.dds_base.DDSBase-class.html#DWORD" title="PyDDS.dds_base.DDSBase.DWORD" alt="" coords="17,30,276,50"/>
-<area shape="rect" id="node2_22" href="PyDDS.dds_base.DDSBase-class.html#UINT" title="PyDDS.dds_base.DDSBase.UINT" alt="" coords="17,50,276,70"/>
-<area shape="rect" id="node2_23" href="PyDDS.dds_base.DDSBase-class.html#__abstractmethods__" title="PyDDS.dds_base.DDSBase.__abstractmethods__" alt="" coords="17,70,276,90"/>
-<area shape="rect" id="node2_24" href="abc.ABCMeta-class.html" title="Metaclass for defining Abstract Base Classes (ABCs)." alt="" coords="17,90,276,110"/>
-<area shape="rect" id="node2_25" href="PyDDS.dds_base.DDSBase.dds_field-class.html" title="dds_field(name, byte_size)" alt="" coords="17,110,276,130"/>
-<area shape="rect" id="node2_26" href="PyDDS.dds_base.DDSBase.dds_flag-class.html" title="dds_flag(field_name, name, value)" alt="" coords="17,130,276,150"/>
-<area shape="rect" id="node2_27" href="PyDDS.dds_base.DDSBase-class.html#get_flag_value" title="Get the value of some flag in a field." alt="" coords="17,153,276,173"/>
-<area shape="rect" id="node2_28" href="PyDDS.dds_base.DDSBase-class.html#swap_endian_hex_str" title="Take some hex string and reverse the byte ordering." alt="" coords="17,173,276,193"/>
-<area shape="rect" id="node2" href="PyDDS.dds_base.DDSBase-class.html" title="Reponsible for containing information common to all classes that will be used to constain data of a DirectDrawSurface (.dds) file." alt="" coords="5,5,288,199"/>
-<area shape="rect" id="node3_29" href="PyDDS.pixel_swizzle.PixelSwizzle-class.html#swizzle_decompressed_bc1_to_png" title="Given decompressed BC1 texture data, re&#45;arrange to a layout compatible with what is expected in the .png file format." alt="" coords="329,105,617,125"/>
-<area shape="rect" id="node3" href="PyDDS.pixel_swizzle.PixelSwizzle-class.html" title="Responsible for handling swizzling of pixel data." alt="" coords="317,73,629,131"/>
+<area shape="rect" id="node1_19" href="PyDDS.py_dds.PyDDS-class.html#format" title="Get the format of the resource." alt="" coords="199,282,439,302"/>
+<area shape="rect" id="node1_20" href="PyDDS.py_dds.PyDDS-class.html#__init__" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="199,305,439,325"/>
+<area shape="rect" id="node1_21" href="PyDDS.py_dds.PyDDS-class.html#decompress" title="If the dds data is compressed, go ahead and decompress it, storing the &#160;results in decompressed_data." alt="" coords="199,325,439,345"/>
+<area shape="rect" id="node1_22" href="PyDDS.py_dds.PyDDS-class.html#write_to_png" title="Write out the pixel data to a .png file." alt="" coords="199,345,439,365"/>
+<area shape="rect" id="node1_23" href="PyDDS.py_dds.PyDDS-class.html#print_fields" title="Pretty print all the of a DDS file that the class is responsible for." alt="" coords="199,365,439,385"/>
+<area shape="rect" id="node1_24" href="PyDDS.py_dds.PyDDS-class.html#check_dds" title="Check the check the data extracted from file to see if this does appear to &#160;be an actual .dds file." alt="" coords="199,385,439,405"/>
+<area shape="rect" id="node1_25" href="PyDDS.py_dds.PyDDS-class.html#read" title="Read a DirectDraw Surface file (.dds)" alt="" coords="199,405,439,425"/>
+<area shape="rect" id="node1_26" href="PyDDS.py_dds.PyDDS-class.html#write" title="Create a DirectDraw Surface (.dds) file." alt="" coords="199,425,439,445"/>
+<area shape="rect" id="node1" href="PyDDS.py_dds.PyDDS-class.html" title="Reponsible for managing all DirectDrawSurface (.dds) file data." alt="" coords="187,257,451,451"/>
+<area shape="rect" id="node2_27" href="PyDDS.dds_base.DDSBase-class.html#DWORD" title="PyDDS.dds_base.DDSBase.DWORD" alt="" coords="18,30,289,50"/>
+<area shape="rect" id="node2_28" href="PyDDS.dds_base.DDSBase-class.html#UINT" title="PyDDS.dds_base.DDSBase.UINT" alt="" coords="18,50,289,70"/>
+<area shape="rect" id="node2_29" href="PyDDS.dds_base.DDSBase-class.html#__abstractmethods__" title="PyDDS.dds_base.DDSBase.__abstractmethods__" alt="" coords="18,70,289,90"/>
+<area shape="rect" id="node2_30" href="abc.ABCMeta-class.html" title="Metaclass for defining Abstract Base Classes (ABCs)." alt="" coords="18,90,289,110"/>
+<area shape="rect" id="node2_31" href="PyDDS.dds_base.DDSBase.dds_field-class.html" title="dds_field(name, byte_size)" alt="" coords="18,110,289,130"/>
+<area shape="rect" id="node2_32" href="PyDDS.dds_base.DDSBase.dds_flag-class.html" title="dds_flag(field_name, name, value)" alt="" coords="18,130,289,150"/>
+<area shape="rect" id="node2_33" href="PyDDS.dds_base.DDSBase-class.html#convert_to_ascii" title="Given some binary string, convert it into an ASCII string." alt="" coords="18,153,289,173"/>
+<area shape="rect" id="node2_34" href="PyDDS.dds_base.DDSBase-class.html#get_flag_value" title="Get the value of some flag in a field." alt="" coords="18,173,289,193"/>
+<area shape="rect" id="node2_35" href="PyDDS.dds_base.DDSBase-class.html#set_fields" title="Given an array of data and field names, create corresponding attributes in the class instance, assigning the corresponding data accordingly." alt="" coords="18,193,289,213"/>
+<area shape="rect" id="node2_36" href="PyDDS.dds_base.DDSBase-class.html#swap_endian_hex_str" title="Take some hex string and reverse the byte ordering." alt="" coords="18,213,289,233"/>
+<area shape="rect" id="node2" href="PyDDS.dds_base.DDSBase-class.html" title="Reponsible for containing information common to all classes that will be used to constain data of a DirectDrawSurface (.dds) file." alt="" coords="5,5,300,239"/>
+<area shape="rect" id="node3_37" href="PyDDS.pixel_swizzle.PixelSwizzle-class.html#swizzle_decompressed_bc1_to_png" title="Given decompressed BC1 texture data, re&#45;arrange to a layout compatible with what is expected in the .png file format." alt="" coords="342,125,630,145"/>
+<area shape="rect" id="node3" href="PyDDS.pixel_swizzle.PixelSwizzle-class.html" title="Responsible for handling swizzling of pixel data." alt="" coords="330,93,642,151"/>
 </map>
   <img src="uml_class_diagram_for_pydds_py.gif" alt='' usemap="#uml_class_diagram_for_pydds_py" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<p>Reponsible for containing the pixelformat information in a 
-  DirectDrawSurface (.dds) file.</p>
+<p>Reponsible for managing all DirectDrawSurface (.dds) file data.</p>
 
 <!-- ==================== NESTED CLASSES ==================== -->
 <a name="section-NestedClasses"></a>
@@ -141,7 +144,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="PyDDS.py_dds.PyDDS-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">fname</span>)</span><br />
+        <span class="summary-sig-arg">fname</span>,
+        <span class="summary-sig-arg">debug_level</span>=<span class="summary-sig-default">None</span>)</span><br />
       x.__init__(...) initializes x; see help(type(x)) for signature</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="PyDDS.py_dds-pysrc.html#PyDDS.__init__">source&nbsp;code</a></span>
@@ -195,9 +199,28 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="PyDDS.py_dds.PyDDS-class.html#print_fields" class="summary-sig-name">print_fields</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Pretty print fields listed in 'fields'.</td>
+      Pretty print all the of a DDS file that the class is responsible for.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="PyDDS.py_dds-pysrc.html#PyDDS.print_fields">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="check_dds"></a><span class="summary-sig-name">check_dds</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fname</span>)</span><br />
+      Check the check the data extracted from file to see if this does 
+      appear to be an actual .dds file.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="PyDDS.py_dds-pysrc.html#PyDDS.check_dds">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -244,7 +267,8 @@
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="PyDDS.dds_base.DDSBase-class.html">dds_base.DDSBase</a></code></b>:
-      <code><a href="PyDDS.dds_base.DDSBase-class.html#get_flag_value">get_flag_value</a></code>
+      <code><a href="PyDDS.dds_base.DDSBase-class.html#get_flag_value">get_flag_value</a></code>,
+      <code><a href="PyDDS.dds_base.DDSBase-class.html#set_fields">set_fields</a></code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
@@ -283,6 +307,7 @@
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="PyDDS.dds_base.DDSBase-class.html">dds_base.DDSBase</a></code></b>:
+      <code><a href="PyDDS.dds_base.DDSBase-class.html#convert_to_ascii">convert_to_ascii</a></code>,
       <code><a href="PyDDS.dds_base.DDSBase-class.html#swap_endian_hex_str">swap_endian_hex_str</a></code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="PyDDS.pixel_swizzle.PixelSwizzle-class.html">pixel_swizzle.PixelSwizzle</a></code></b>:
@@ -341,6 +366,14 @@
     </table>
   </td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="PyDDS.py_dds.PyDDS-class.html#format" class="summary-name">format</a><br />
+      Get the format of the resource.
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
@@ -375,7 +408,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">fname</span>)</span>
+        <span class="sig-arg">fname</span>,
+        <span class="sig-arg">debug_level</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -406,7 +440,8 @@
     </td>
   </tr></table>
   
-  <p>Pretty print fields listed in 'fields'.</p>
+  <p>Pretty print all the of a DDS file that the class is responsible 
+  for.</p>
   <p>Generally print each field, the value of that field (with 
   corresponding ASCII representation), and then a breakdown of any flags in
   that field, if applicable.</p>
@@ -485,6 +520,40 @@ Raises:
 </td></tr></table>
 </div>
 <br />
+<!-- ==================== PROPERTY DETAILS ==================== -->
+<a name="section-PropertyDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Property Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-PropertyDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="format"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">format</h3>
+  <p>Get the format of the resource.</p>
+  <dl class="fields">
+    <dt>Get Method:</dt>
+    <dd class="value"><span class="summary-sig"><i>unreachable</i>.format(<span class="summary-sig-arg">self</span>)</span>
+        - Get the format of the resource.
+    </dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -516,7 +585,7 @@ Raises:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon May 29 00:53:12 2017
+    Generated by Epydoc 3.0.1 on Mon May 29 23:56:39 2017
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -6,15 +6,13 @@
 
 import logging
 from . import dds_base
-
+from . import dx
 
 class DXT10Header(dds_base.DDSBase):
     """Reponsible for containing the dxt10_header information in
     a DirectDrawSurface (.dds) file.
 
     Note: the DXT10 header may not exist in a given .dds file"""
-
-    ##############################################################
 
     def __init__(self):
         super(DXT10Header, self).__init__()
@@ -40,3 +38,8 @@ class DXT10Header(dds_base.DDSBase):
                                    for field in self.fields])
 
         self.valid = False
+
+    @property
+    def format(self):
+        """Get the format reported in this header."""
+        return dx.DXT10_FMT2STR[self.dxgiFormat]

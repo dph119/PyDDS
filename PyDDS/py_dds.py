@@ -36,6 +36,18 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
 
         self.read(fname)
 
+    @property
+    def format(self):
+        """Get the format of the resource."""
+
+        surface_format = self.dds_header.format
+
+        if surface_format == 'DXT10':
+            # Real format is actually stored in the DXT10 header
+            surface_format = self.dxt10_header.format
+
+        return surface_format
+
     def decompress(self):
         """If the dds data is compressed, go ahead and decompress it,
         storing the results in decompressed_data."""

@@ -64,18 +64,20 @@
 <h1 class="epydoc">Class Pixelformat</h1><p class="nomargin-top"><span class="codelink"><a href="PyDDS.pixelformat-pysrc.html#Pixelformat">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pydds_pi_2" name="uml_class_diagram_for_pydds_pi_2">
-<area shape="rect" id="node1_10" href="PyDDS.pixelformat.Pixelformat-class.html#__init__" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="107,269,187,289"/>
-<area shape="rect" id="node1" href="PyDDS.pixelformat.Pixelformat-class.html" title="Reponsible for containing the pixelformat information in a DirectDrawSurface (.dds) file." alt="" coords="95,237,199,296"/>
-<area shape="rect" id="node2_11" href="PyDDS.dds_base.DDSBase-class.html#DWORD" title="PyDDS.dds_base.DDSBase.DWORD" alt="" coords="17,29,276,49"/>
-<area shape="rect" id="node2_12" href="PyDDS.dds_base.DDSBase-class.html#UINT" title="PyDDS.dds_base.DDSBase.UINT" alt="" coords="17,49,276,69"/>
-<area shape="rect" id="node2_13" href="PyDDS.dds_base.DDSBase-class.html#__abstractmethods__" title="PyDDS.dds_base.DDSBase.__abstractmethods__" alt="" coords="17,69,276,89"/>
-<area shape="rect" id="node2_14" href="abc.ABCMeta-class.html" title="Metaclass for defining Abstract Base Classes (ABCs)." alt="" coords="17,89,276,109"/>
-<area shape="rect" id="node2_15" href="PyDDS.dds_base.DDSBase.dds_field-class.html" title="dds_field(name, byte_size)" alt="" coords="17,109,276,129"/>
-<area shape="rect" id="node2_16" href="PyDDS.dds_base.DDSBase.dds_flag-class.html" title="dds_flag(field_name, name, value)" alt="" coords="17,129,276,149"/>
-<area shape="rect" id="node2_17" href="PyDDS.dds_base.DDSBase-class.html#get_flag_value" title="Get the value of some flag in a field." alt="" coords="17,152,276,172"/>
-<area shape="rect" id="node2_18" href="PyDDS.dds_base.DDSBase-class.html#print_fields" title="Pretty print fields listed in &#39;fields&#39;." alt="" coords="17,172,276,192"/>
-<area shape="rect" id="node2_19" href="PyDDS.dds_base.DDSBase-class.html#swap_endian_hex_str" title="Take some hex string and reverse the byte ordering." alt="" coords="17,192,276,212"/>
-<area shape="rect" id="node2" href="PyDDS.dds_base.DDSBase-class.html" title="Reponsible for containing information common to all classes that will be used to constain data of a DirectDrawSurface (.dds) file." alt="" coords="5,5,288,219"/>
+<area shape="rect" id="node1_12" href="PyDDS.pixelformat.Pixelformat-class.html#__init__" title="x.__init__(...) initializes x; see help(type(x)) for signature" alt="" coords="114,309,194,329"/>
+<area shape="rect" id="node1" href="PyDDS.pixelformat.Pixelformat-class.html" title="Reponsible for containing the pixelformat information in a DirectDrawSurface (.dds) file." alt="" coords="102,277,206,336"/>
+<area shape="rect" id="node2_13" href="PyDDS.dds_base.DDSBase-class.html#DWORD" title="PyDDS.dds_base.DDSBase.DWORD" alt="" coords="18,29,289,49"/>
+<area shape="rect" id="node2_14" href="PyDDS.dds_base.DDSBase-class.html#UINT" title="PyDDS.dds_base.DDSBase.UINT" alt="" coords="18,49,289,69"/>
+<area shape="rect" id="node2_15" href="PyDDS.dds_base.DDSBase-class.html#__abstractmethods__" title="PyDDS.dds_base.DDSBase.__abstractmethods__" alt="" coords="18,69,289,89"/>
+<area shape="rect" id="node2_16" href="abc.ABCMeta-class.html" title="Metaclass for defining Abstract Base Classes (ABCs)." alt="" coords="18,89,289,109"/>
+<area shape="rect" id="node2_17" href="PyDDS.dds_base.DDSBase.dds_field-class.html" title="dds_field(name, byte_size)" alt="" coords="18,109,289,129"/>
+<area shape="rect" id="node2_18" href="PyDDS.dds_base.DDSBase.dds_flag-class.html" title="dds_flag(field_name, name, value)" alt="" coords="18,129,289,149"/>
+<area shape="rect" id="node2_19" href="PyDDS.dds_base.DDSBase-class.html#convert_to_ascii" title="Given some binary string, convert it into an ASCII string." alt="" coords="18,152,289,172"/>
+<area shape="rect" id="node2_20" href="PyDDS.dds_base.DDSBase-class.html#get_flag_value" title="Get the value of some flag in a field." alt="" coords="18,172,289,192"/>
+<area shape="rect" id="node2_21" href="PyDDS.dds_base.DDSBase-class.html#print_fields" title="Pretty print all the of a DDS file that the class is responsible for." alt="" coords="18,192,289,212"/>
+<area shape="rect" id="node2_22" href="PyDDS.dds_base.DDSBase-class.html#set_fields" title="Given an array of data and field names, create corresponding attributes in the class instance, assigning the corresponding data accordingly." alt="" coords="18,212,289,232"/>
+<area shape="rect" id="node2_23" href="PyDDS.dds_base.DDSBase-class.html#swap_endian_hex_str" title="Take some hex string and reverse the byte ordering." alt="" coords="18,232,289,252"/>
+<area shape="rect" id="node2" href="PyDDS.dds_base.DDSBase-class.html" title="Reponsible for containing information common to all classes that will be used to constain data of a DirectDrawSurface (.dds) file." alt="" coords="5,5,300,259"/>
 </map>
   <img src="uml_class_diagram_for_pydds_pi_2.gif" alt='' usemap="#uml_class_diagram_for_pydds_pi_2" ismap="ismap" class="graph-without-title" />
 </center>
@@ -149,7 +151,8 @@
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="PyDDS.dds_base.DDSBase-class.html">dds_base.DDSBase</a></code></b>:
       <code><a href="PyDDS.dds_base.DDSBase-class.html#get_flag_value">get_flag_value</a></code>,
-      <code><a href="PyDDS.dds_base.DDSBase-class.html#print_fields">print_fields</a></code>
+      <code><a href="PyDDS.dds_base.DDSBase-class.html#print_fields">print_fields</a></code>,
+      <code><a href="PyDDS.dds_base.DDSBase-class.html#set_fields">set_fields</a></code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
@@ -188,6 +191,7 @@
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="PyDDS.dds_base.DDSBase-class.html">dds_base.DDSBase</a></code></b>:
+      <code><a href="PyDDS.dds_base.DDSBase-class.html#convert_to_ascii">convert_to_ascii</a></code>,
       <code><a href="PyDDS.dds_base.DDSBase-class.html#swap_endian_hex_str">swap_endian_hex_str</a></code>
       </p>
     </td>
@@ -325,7 +329,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon May 29 00:53:12 2017
+    Generated by Epydoc 3.0.1 on Mon May 29 23:56:39 2017
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

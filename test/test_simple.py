@@ -18,6 +18,10 @@ class TestSimple(unittest.TestCase):
         self.test_dds = PyDDS.PyDDS('test/Test.dds', logging.INFO)
         self.fungus_dds = PyDDS.PyDDS('test/fungus.dds')
 
+    def test_print_format(self):
+        """Retrieve and print the format of Test.dds."""
+        print self.test_dds.format
+
     def test_print_fields(self):
         """Simply print the header information of Test.dds"""
         self.test_dds.print_fields()

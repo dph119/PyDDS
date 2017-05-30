@@ -18,6 +18,16 @@ class TestSimple(unittest.TestCase):
         self.test_dds = PyDDS.PyDDS('test/Test.dds', logging.INFO)
         self.fungus_dds = PyDDS.PyDDS('test/fungus.dds')
 
+    def test_enum_lookup(self):
+        """Test for consistency in the enum look-up functions."""
+        for enum in PyDDS.dx.DDS_FMT2STR.iterkeys():
+            self.assertEqual(enum,
+                             PyDDS.dx.DDS_STR2FMT[PyDDS.dx.DDS_FMT2STR[enum]])
+
+        for enum in PyDDS.dx.DXT10_FMT2STR.iterkeys():
+            self.assertEqual(enum,
+                             PyDDS.dx.DXT10_STR2FMT[PyDDS.dx.DXT10_FMT2STR[enum]])
+
     def test_print_format(self):
         """Retrieve and print the format of Test.dds."""
         print self.test_dds.format

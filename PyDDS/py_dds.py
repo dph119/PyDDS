@@ -34,7 +34,9 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
         self.decompressed_data = []
         self.data_is_decompressed = False
 
+        # Read the file and (if necessary) decompress it
         self.read(fname)
+        self.decompress()
 
     @property
     def format(self):
@@ -49,15 +51,12 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
         return surface_format
 
     def decompress(self):
-        """If the dds data is compressed, go ahead and decompress it,
+        """If the dds data is compressed (according to the format), go ahead and decompress it,
         storing the results in decompressed_data."""
 
-        # TODO: Check the format of this data to see if it even needs
-        # to be decompressed. Currently assumes the format is BC1,
-        # but obviously won't always be the case
-
-        self.decompressed_data = self.block_compression.decompress_bc1(self.data)
-        self.data_is_decompressed = True
+        if self.format == 'DXGI_FORMAT_BC1_UNORM':
+            self.decompressed_data = self.block_compression.decompress_bc1(self.data)
+            self.data_is_decompressed = True
 
     def write_to_png(self, fname):
         """Write out the pixel data to a .png file."""

@@ -16,7 +16,7 @@ class TestSimple(unittest.TestCase):
     def setUp(self):
         # Read some test file.
         self.test_dds = PyDDS.PyDDS('test/Test.dds', logging.INFO)
-        self.fungus_dds = PyDDS.PyDDS('test/fungus.dds')
+        self.fungus_dds = PyDDS.PyDDS('test/fungus.dds', logging.INFO))
 
     def test_enum_lookup(self):
         """Test for consistency in the enum look-up functions."""
@@ -51,24 +51,17 @@ class TestSimple(unittest.TestCase):
         swizzled_data = self.test_dds.swizzle_decompressed_bc1_to_png(faux_data, 8)
         self.assertEqual(swizzled_data, expected_data)
 
-    def test_decompress_dds(self):
-        """Decompress the data read from the .dds file."""
-        self.test_dds.decompress()
-        self.fungus_dds.decompress()
-
     def test_write_dds(self):
         """Write the data out to another .dds file."""
         self.test_dds.write('test/Test_copy.dds')
         self.fungus_dds.write('test/fungus_copy.dds')
 
     def test_write_test_dds_to_png(self):
-        """Decompress the Test.dds data, and write it to a .png."""
-        self.test_dds.decompress()
+        """Write the Test.dds data to a .png."""
         self.test_dds.write_to_png('test/Test.png')
 
     def test_write_fungus_dds_to_png(self):
-        """Decompress the Fungus.dds data (which has mipmaps), and write it to a .png."""
-        self.fungus_dds.decompress()
+        """Write fungus.dds data (which contains mipmaps) to a .png."""
         self.fungus_dds.write_to_png('test/fungus.png')
 
 if __name__ == '__main__':

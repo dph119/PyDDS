@@ -60,15 +60,13 @@ class TestSimple(unittest.TestCase):
         """Write the Test.dds data to a .png."""
         self.test_dds.write_to_png('test/Test.png')
 
-    def test_write_modified_test_dds_to_png(self):
-        """Write the Test.dds data to a .png."""
-        # Modify the third component of each 32-bit/4-byte pixel
-        # ... just set it to 127 for funsies
-        new_data = []
-        for pixel in zip(*(iter(self.test_dds.decompressed_data),) * 4):
-            new_data = new_data + [component if index % 2 != 0 else 127 \
-                                   for index, component in enumerate(pixel)]
-        self.test_dds.decompressed_data = new_data
+    def test_write_modified_dds_to_png(self):
+        """Write a modified Test.dds to a .png."""
+        # Swap the second and third component for funsies
+        for index in xrange(1, len(self.test_dds.decompressed_data), 4):
+            orig = self.test_dds.decompressed_data[index]
+            self.test_dds.decompressed_data[index] = self.test_dds.decompressed_data[index + 1]
+            self.test_dds.decompressed_data[index + 1] = orig
         self.test_dds.write_to_png('test/Test_modified.png')
 
     def test_write_fungus_dds_to_png(self):

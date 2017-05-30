@@ -30,6 +30,9 @@ class PyDDS(dds_base.DDSBase, pixel_swizzle.PixelSwizzle):
         self.dxt10_header = dxt10_header.DXT10Header()
         self.block_compression = block_compression.BlockCompression()
         self.logger = logging.getLogger(__name__)
+        # BOZO: Maybe have a single accessible 'data' attribute, return
+        # 'data' vs 'decompressed_data' based on data_is_decompressed flag?
+        # TODO: Consider incorporating numpy?
         self.data = []
         self.decompressed_data = []
         self.data_is_decompressed = False

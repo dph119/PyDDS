@@ -16,7 +16,7 @@ class TestSimple(unittest.TestCase):
     def setUp(self):
         # Read some test file.
         self.test_dds = PyDDS.PyDDS('test/Test.dds', logging.INFO)
-        self.fungus_dds = PyDDS.PyDDS('test/fungus.dds', logging.INFO))
+        self.fungus_dds = PyDDS.PyDDS('test/fungus.dds', logging.INFO)
 
     def test_enum_lookup(self):
         """Test for consistency in the enum look-up functions."""
@@ -59,6 +59,17 @@ class TestSimple(unittest.TestCase):
     def test_write_test_dds_to_png(self):
         """Write the Test.dds data to a .png."""
         self.test_dds.write_to_png('test/Test.png')
+
+    def test_write_modified_test_dds_to_png(self):
+        """Write the Test.dds data to a .png."""
+        # Modify the third component of each 32-bit/4-byte pixel
+        # ... just set it to 127 for funsies
+        new_data = []
+        for pixel in zip(*(iter(self.test_dds.decompressed_data),) * 4):
+            new_data = new_data + [component if index % 2 != 0 else 127 \
+                                   for index, component in enumerate(pixel)]
+        self.test_dds.decompressed_data = new_data
+        self.test_dds.write_to_png('test/Test_modified.png')
 
     def test_write_fungus_dds_to_png(self):
         """Write fungus.dds data (which contains mipmaps) to a .png."""
